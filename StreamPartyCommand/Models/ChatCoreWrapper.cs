@@ -18,7 +18,7 @@ namespace StreamPartyCommand.Models
         public ChatCoreInstance CoreInstance { get; private set; }
         public ChatServiceMultiplexer MultiplexerInstance { get; private set; }
         public TwitchService TwitchService { get; private set; }
-        public ConcurrentQueue<IChatMessage> RecieveChatMessage { get; } = new ConcurrentQueue<IChatMessage>();
+        public ConcurrentQueue<ReceiveMessageEventArgs> RecieveChatMessage { get; } = new ConcurrentQueue<ReceiveMessageEventArgs>();
         public ConcurrentQueue<string> SendMessageQueue { get; } = new ConcurrentQueue<string>();
 
         public event OnTextMessageReceivedHandler OnMessageReceived;
@@ -42,7 +42,7 @@ namespace StreamPartyCommand.Models
 
         private void ChatCoreWrapper_OnMessageReceived(object sender, ReceiveMessageEventArgs e)
         {
-            this.RecieveChatMessage.Enqueue(e.ChatMessage);
+            this.RecieveChatMessage.Enqueue(e);
         }
         private void MultiplexerInstance_OnTextMessageReceived(IChatService arg1, IChatMessage arg2) => this.OnMessageReceived?.Invoke(this, new ReceiveMessageEventArgs(arg1, arg2));
         private void MultiplexerInstance_OnJoinChannel(IChatService arg1, IChatChannel arg2) => this.OnJoinChannel?.Invoke(this, new JoinChannelEventArgs(arg1, arg2));

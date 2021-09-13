@@ -76,7 +76,14 @@ namespace StreamPartyCommand
         /// </summary>
         private void Update()
         {
-
+            while (_chatCoreWrapper.RecieveChatMessage.TryDequeue(out var message)) {
+                if (string.IsNullOrEmpty(message.ChatMessage.Message)) {
+                    continue;
+                }
+                if (this.CommandControllers.TryGetValue(message.ChatMessage.Message.Split(' ')[0], out var commandable)) {
+                    commandable.Execute(message.ChatService, message.ChatMessage);
+                }
+            }
         }
         /// <summary>
         /// Called when the script is being destroyed.
