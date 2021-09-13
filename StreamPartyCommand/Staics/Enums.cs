@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StreamPartyCommand.Models
+namespace StreamPartyCommand.Staics
 {
-    class LightColorController
-    {
-    }
 }

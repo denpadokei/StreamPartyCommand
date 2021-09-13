@@ -15,6 +15,7 @@ namespace StreamPartyCommand.Interfaces
 
     public interface ICommandable
     {
+        string Key { get; }
         void Execute(IChatService service, IChatMessage message);
     }
 }

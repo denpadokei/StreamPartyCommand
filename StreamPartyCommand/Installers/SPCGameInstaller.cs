@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SiraUtil;
+using StreamPartyCommand.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +11,9 @@ namespace StreamPartyCommand.Installers
 {
     public class SPCGameInstaller : MonoInstaller
     {
+        public override void InstallBindings()
+        {
+            this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject(nameof(StreamPartyCommandController)).AsCached();
+        }
     }
 }

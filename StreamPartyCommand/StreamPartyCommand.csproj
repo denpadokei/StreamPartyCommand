@@ -112,17 +112,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\JoinChannelEventArgs.cs" />
+    <Compile Include="Events\LoginEventArgs.cs" />
+    <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
-    <Compile Include="Models\BombCommandController.cs" />
+    <Compile Include="CommandControllers\BombCommandController.cs" />
     <Compile Include="Models\ChatCoreWrapper.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
-    <Compile Include="Models\LightColorController.cs" />
-    <Compile Include="Models\NoteColorController.cs" />
-    <Compile Include="Models\SaberColorController.cs" />
-    <Compile Include="Models\WallColorController.cs" />
+    <Compile Include="CommandControllers\LightColorController.cs" />
+    <Compile Include="CommandControllers\NoteColorController.cs" />
+    <Compile Include="CommandControllers\SaberColorController.cs" />
+    <Compile Include="CommandControllers\WallColorController.cs" />
+    <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
+    <Compile Include="Staics\CommandKey.cs" />
+    <Compile Include="Staics\Enums.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -141,5 +147,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
