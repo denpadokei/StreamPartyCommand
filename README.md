@@ -1,0 +1,2 @@
+# StreamPartyCommand
+ボムとかがどっかーんってするやつ
