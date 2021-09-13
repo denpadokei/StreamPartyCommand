@@ -113,6 +113,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installers\SPCGameInstaller.cs" />
+    <Compile Include="Interfaces\ICommandable.cs" />
+    <Compile Include="Models\BombCommandController.cs" />
+    <Compile Include="Models\ChatCoreWrapper.cs" />
+    <Compile Include="Models\FontAssetReader.cs" />
+    <Compile Include="Models\LightColorController.cs" />
+    <Compile Include="Models\NoteColorController.cs" />
+    <Compile Include="Models\SaberColorController.cs" />
+    <Compile Include="Models\WallColorController.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
