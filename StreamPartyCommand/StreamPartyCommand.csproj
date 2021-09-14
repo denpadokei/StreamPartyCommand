@@ -40,8 +40,18 @@
     <DisableZipRelease>True</DisableZipRelease>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeatmapCore">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="ChatCore">
       <HintPath>$(BeatSaberDir)\Libs\ChatCore.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="GameplayCore">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -118,13 +128,17 @@
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
     <Compile Include="CommandControllers\BombCommandController.cs" />
+    <Compile Include="Models\BombEffectSpowner.cs" />
     <Compile Include="Models\ChatCoreWrapper.cs" />
+    <Compile Include="Models\DummyBomb.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
     <Compile Include="CommandControllers\LightColorController.cs" />
     <Compile Include="CommandControllers\NoteColorController.cs" />
     <Compile Include="CommandControllers\SaberColorController.cs" />
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
+    <Compile Include="Models\FryingBombNameEffect.cs" />
+    <Compile Include="Models\ObjectMemoryPool.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Staics\CommandKey.cs" />

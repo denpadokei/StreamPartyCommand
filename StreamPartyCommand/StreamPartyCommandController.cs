@@ -81,7 +81,9 @@ namespace StreamPartyCommand
                     continue;
                 }
                 if (this.CommandControllers.TryGetValue(message.ChatMessage.Message.Split(' ')[0], out var commandable)) {
+                    // 1F1コマンド
                     commandable.Execute(message.ChatService, message.ChatMessage);
+                    break;
                 }
             }
         }

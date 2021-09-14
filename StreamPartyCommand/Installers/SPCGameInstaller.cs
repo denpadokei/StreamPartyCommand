@@ -14,6 +14,7 @@ namespace StreamPartyCommand.Installers
         public override void InstallBindings()
         {
             this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject(nameof(StreamPartyCommandController)).AsCached();
+            this.Container.BindMemoryPool<DummyBomb.Pool>().WithFixedSize(64);
         }
     }
 }
