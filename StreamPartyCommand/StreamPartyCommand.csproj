@@ -40,6 +40,11 @@
     <DisableZipRelease>True</DisableZipRelease>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="BeatmapCore">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
       <Private>False</Private>
@@ -94,6 +99,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -124,6 +134,7 @@
   <ItemGroup>
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
+    <Compile Include="HarmonyPathches\NoteWasCutEventPatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
@@ -131,13 +142,14 @@
     <Compile Include="Models\BombEffectSpowner.cs" />
     <Compile Include="Models\ChatCoreWrapper.cs" />
     <Compile Include="Models\DummyBomb.cs" />
+    <Compile Include="Models\DummyBombExprosionEffect.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
     <Compile Include="CommandControllers\LightColorController.cs" />
     <Compile Include="CommandControllers\NoteColorController.cs" />
     <Compile Include="CommandControllers\SaberColorController.cs" />
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
-    <Compile Include="Models\FryingBombNameEffect.cs" />
+    <Compile Include="Models\FlyingBombNameEffect.cs" />
     <Compile Include="Models\ObjectMemoryPool.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -145,11 +157,13 @@
     <Compile Include="Staics\Enums.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\NoteDataCreater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Assets\neontubes2 sdf.assets" />
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="StreamPartyCommand.csproj.user" Condition="Exists('StreamPartyCommand.csproj.user')" />

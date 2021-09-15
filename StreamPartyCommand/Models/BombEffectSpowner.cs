@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace StreamPartyCommand.Models
 {
-    public class BombEffectSpowner : MonoBehaviour
+    public class BombEffectSpowner : MonoBehaviour, IFlyingObjectEffectDidFinishEvent
     {
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // プロパティ
@@ -31,25 +31,39 @@ namespace StreamPartyCommand.Models
         {
             this._beatmapObjectManager.noteWasCutEvent -= this.OnNoteWasCutEvent;
         }
+
+        public void HandleFlyingObjectEffectDidFinish(FlyingObjectEffect flyingObjectEffect)
+        {
+            flyingObjectEffect.didFinishEvent.Remove(this);
+            this._flyingBombNameEffectPool.Despawn(flyingObjectEffect as FlyingBombNameEffect);
+        }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // プライベートメソッド
         private void OnNoteWasCutEvent(NoteController noteController, in NoteCutInfo noteCutInfo)
         {
-            if (noteController.noteData.colorType == ColorType.None && ()) {
-
+            if ((int)noteController.noteData.colorType == DummyBomb.DUMMY_BOMB_VALUE && noteController is DummyBomb dummyBomb) {
+                this._dummyBombExprosionEffect.SpawnExplosion(noteCutInfo.cutPoint);
+                var effect = this._flyingBombNameEffectPool.Spawn();
+                effect.transform.localPosition = noteCutInfo.cutPoint;
+                effect.didFinishEvent.Add(this);
+                effect.InitAndPresent(dummyBomb.Text, 3f, new Vector3(0, 1.7f, 10f), Quaternion.identity, Color.white, 20, false);
             }
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // メンバ変数
         private BeatmapObjectManager _beatmapObjectManager;
+        private DummyBombExprosionEffect _dummyBombExprosionEffect;
+        private MemoryPoolContainer<FlyingBombNameEffect> _flyingBombNameEffectPool;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄
-        public void Constractor(BeatmapObjectManager manager)
+        public void Constractor(BeatmapObjectManager manager, DummyBombExprosionEffect effect, FlyingBombNameEffect.Pool pool)
         {
             this._beatmapObjectManager = manager;
+            this._dummyBombExprosionEffect = effect;
+            this._flyingBombNameEffectPool = new MemoryPoolContainer<FlyingBombNameEffect>(pool);
         }
         #endregion
     }
