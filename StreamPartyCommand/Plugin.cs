@@ -1,21 +1,27 @@
-﻿using IPA;
+﻿using HarmonyLib;
+using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
+using SiraUtil.Zenject;
+using StreamPartyCommand.Installers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
 
 namespace StreamPartyCommand
 {
-    [Plugin(RuntimeOptions.SingleStartInit)]
+    [Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
+        public const string HARMONY_ID = "StreamPartyCommand.denpadokei.com.github";
+        private Harmony harmony;
 
         [Init]
         /// <summary>
@@ -23,11 +29,14 @@ namespace StreamPartyCommand
         /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
         /// Only use [Init] with one Constructor.
         /// </summary>
-        public void Init(IPALogger logger)
+        public void Init(IPALogger logger, Zenjector zenjector)
         {
             Instance = this;
             Log = logger;
             Log.Info("StreamPartyCommand initialized.");
+            this.harmony = new Harmony(HARMONY_ID);
+            zenjector.OnApp<SPCAppInstaller>();
+            zenjector.OnGame<SPCGameInstaller>().OnlyForStandard();
         }
 
         #region BSIPA Config
@@ -46,15 +55,25 @@ namespace StreamPartyCommand
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            new GameObject("StreamPartyCommandController").AddComponent<StreamPartyCommandController>();
-
+            //new GameObject("StreamPartyCommandController").AddComponent<StreamPartyCommandController>();
         }
 
         [OnExit]
         public void OnApplicationQuit()
         {
             Log.Debug("OnApplicationQuit");
+        }
 
+        [OnEnable]
+        public void OnEnable()
+        {
+            this.harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
+
+        [OnDisable]
+        public void OnDisable()
+        {
+            this.harmony.UnpatchAll(HARMONY_ID);
         }
     }
 }

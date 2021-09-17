@@ -12,7 +12,7 @@ namespace StreamPartyCommand.Installers
     {
         public override void InstallBindings()
         {
-            this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsSingle();
+            this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsCached();
         }
     }
 }

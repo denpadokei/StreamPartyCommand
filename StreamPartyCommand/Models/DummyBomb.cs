@@ -1,4 +1,5 @@
-﻿using StreamPartyCommand.Utility;
+﻿using IPA.Utilities;
+using StreamPartyCommand.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,12 @@ namespace StreamPartyCommand.Models
         #region // オーバーライドメソッド
         protected override void Awake()
         {
+            Logger.Debug("Awake call.");
+            var bomb = Resources.FindObjectsOfTypeAll<BombNoteController>().FirstOrDefault();
+            this.SetField<NoteController, NoteMovement>("_noteMovement", bomb.GetField<NoteMovement, NoteController>("_noteMovement"));
+            this.SetField<NoteController, Transform>("_noteTransform", bomb.GetField<Transform, NoteController>("_noteTransform"));
+            _cuttableBySaber = bomb.GetField<CuttableBySaber, BombNoteController>("_cuttableBySaber");
+            _wrapperGO = bomb.GetField<GameObject, BombNoteController>("_wrapperGO");
             base.Awake();
             this._cuttableBySaber.wasCutBySaberEvent += this.HandleWasCutBySaber;
             this._noteMovement.noteDidPassHalfJumpEvent += this.HandleDidPassHalfJump;
@@ -54,8 +61,11 @@ namespace StreamPartyCommand.Models
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // パブリックメソッド
-        public virtual void Init(NoteData noteData, float worldRotation, Vector3 moveStartPos, Vector3 moveEndPos, Vector3 jumpEndPos, float moveDuration, float jumpDuration, float jumpGravity, string text)
+        public virtual void Init(NoteData noteData, float worldRotation, Vector3 moveStartPos, Vector3 moveEndPos, Vector3 jumpEndPos, float moveDuration, float jumpDuration, float jumpGravity,
+            //NoteMovement noteMovement, Transform noteTransform, CuttableBySaber saber, GameObject GO,
+            string text)
         {
+            Logger.Debug("Init call.");
             noteData = NoteDataCreater.CreateDummyBomb(noteData.time, noteData.lineIndex, noteData.noteLineLayer);
             this._cuttableBySaber.canBeCut = true;
             this.Text = text;
@@ -66,10 +76,12 @@ namespace StreamPartyCommand.Models
         #region // プライベートメソッド
         private void HandleDidPassHalfJump()
         {
-
+            Logger.Debug("HandleDidPassHalfJump call.");
+            this._cuttableBySaber.canBeCut = false;
         }
         private void HandleWasCutBySaber(Saber saber, Vector3 cutPoint, Quaternion orientation, Vector3 cutDirVec)
         {
+            Logger.Debug("HandleWasCutBySaber call.");
             var directionOK = true;
             var speedOK = true;
             var saberTypeOK = false;
@@ -89,7 +101,7 @@ namespace StreamPartyCommand.Models
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄
         #endregion
-        public class Pool : MemoryPool<DummyBomb>
+        public class Pool : MonoMemoryPool<DummyBomb>
         {
         }
     }

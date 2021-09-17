@@ -1,9 +1,12 @@
-﻿using System;
+﻿using IPA.Utilities;
+using StreamPartyCommand.HarmonyPathches;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace StreamPartyCommand.Models
 {
@@ -34,6 +37,7 @@ namespace StreamPartyCommand.Models
 
         public void HandleFlyingObjectEffectDidFinish(FlyingObjectEffect flyingObjectEffect)
         {
+            Logger.Debug("HandleFlyingObjectEffectDidFinish call.");
             flyingObjectEffect.didFinishEvent.Remove(this);
             this._flyingBombNameEffectPool.Despawn(flyingObjectEffect as FlyingBombNameEffect);
         }
@@ -42,6 +46,7 @@ namespace StreamPartyCommand.Models
         #region // プライベートメソッド
         private void OnNoteWasCutEvent(NoteController noteController, in NoteCutInfo noteCutInfo)
         {
+            Logger.Debug("OnNoteWasCutEvent call.");
             if ((int)noteController.noteData.colorType == DummyBomb.DUMMY_BOMB_VALUE && noteController is DummyBomb dummyBomb) {
                 this._dummyBombExprosionEffect.SpawnExplosion(noteCutInfo.cutPoint);
                 var effect = this._flyingBombNameEffectPool.Spawn();
@@ -59,11 +64,16 @@ namespace StreamPartyCommand.Models
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄
-        public void Constractor(BeatmapObjectManager manager, DummyBombExprosionEffect effect, FlyingBombNameEffect.Pool pool)
+        [Inject]
+        public void Constractor(NoteCutCoreEffectsSpawner spawner, BeatmapObjectManager manager, DummyBombExprosionEffect effect, FlyingBombNameEffect.Pool pool)
         {
             this._beatmapObjectManager = manager;
             this._dummyBombExprosionEffect = effect;
             this._flyingBombNameEffectPool = new MemoryPoolContainer<FlyingBombNameEffect>(pool);
+            var bombeffect = spawner.GetField<BombExplosionEffect, NoteCutCoreEffectsSpawner>("_bombExplosionEffect");
+            var debri = bombeffect.GetField<ParticleSystem, BombExplosionEffect>("_debrisPS");
+            var exprosion = bombeffect.GetField<ParticleSystem, BombExplosionEffect>("_explosionPS");
+            this._dummyBombExprosionEffect.SetEffect(Instantiate(debri), Instantiate(exprosion));
         }
         #endregion
     }

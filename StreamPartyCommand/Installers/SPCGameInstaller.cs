@@ -13,8 +13,12 @@ namespace StreamPartyCommand.Installers
     {
         public override void InstallBindings()
         {
-            this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject(nameof(StreamPartyCommandController)).AsCached();
-            this.Container.BindMemoryPool<DummyBomb.Pool>().WithFixedSize(64);
+            //this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject(nameof(StreamPartyCommandController)).AsCached();
+            this.Container.BindMemoryPool<DummyBomb, DummyBomb.Pool>().WithFixedSize(64).FromNewComponentOnNewGameObject();
+            this.Container.BindMemoryPool<FlyingBombNameEffect, FlyingBombNameEffect.Pool>().WithFixedSize(8).FromNewComponentOnNewGameObject();
+            this.Container.BindInterfacesAndSelfTo<DummyBombObjectSpowner>().FromNewComponentOnNewGameObject(nameof(DummyBombObjectSpowner)).AsCached();
+            this.Container.BindInterfacesAndSelfTo<DummyBombExprosionEffect>().FromNewComponentOnNewGameObject(nameof(DummyBombExprosionEffect)).AsCached();
+            this.Container.BindInterfacesAndSelfTo<BombEffectSpowner>().FromNewComponentOnNewGameObject(nameof(BombEffectSpowner)).AsCached();
         }
     }
 }

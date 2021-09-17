@@ -134,15 +134,17 @@
   <ItemGroup>
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
-    <Compile Include="HarmonyPathches\NoteWasCutEventPatch.cs" />
+    <Compile Include="HarmonyPathches\SpawnBasicNotePatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
     <Compile Include="CommandControllers\BombCommandController.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Models\BombEffectSpowner.cs" />
     <Compile Include="Models\ChatCoreWrapper.cs" />
     <Compile Include="Models\DummyBomb.cs" />
     <Compile Include="Models\DummyBombExprosionEffect.cs" />
+    <Compile Include="Models\DummyBombObjectSpowner.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
     <Compile Include="CommandControllers\LightColorController.cs" />
     <Compile Include="CommandControllers\NoteColorController.cs" />
