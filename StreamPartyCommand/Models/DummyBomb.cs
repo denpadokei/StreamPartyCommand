@@ -30,34 +30,28 @@ namespace StreamPartyCommand.Models
         #region // オーバーライドメソッド
         protected void Awake()
         {
-            Logger.Debug("Awake call.");
             this.Controller = this.GetComponent<GameNoteController>();
             this.Controller.didInitEvent.Add(this);
-            
-            this._colorNoteVisuals = this.GetComponentInChildren<ColorNoteVisuals>();
             this._noteCube = this.gameObject.transform.Find("NoteCube");
-            _noteMesh = GetComponentInChildren<MeshRenderer>();
-            
-            foreach (var comp in this.gameObject.GetComponentsInChildren<MonoBehaviour>(true)) {
-                Logger.Debug($"{comp.name}:{comp}");
-            }
+            this._colorManager = this.gameObject.GetComponentInChildren<ColorNoteVisuals>().GetField<ColorManager, ColorNoteVisuals>("_colorManager");
+            this._noteMesh = GetComponentInChildren<MeshRenderer>();
         }
         protected void OnDestroy()
         {
-            Logger.Debug("OnDestroy call.");
             this.Controller.didInitEvent.Remove(this);
-            
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // パブリックメソッド
         public void HandleNoteControllerDidInit(NoteControllerBase noteController)
         {
-            Logger.Debug($"HandleNoteControllerDidInit call");
             if (this._bombMesh == null) {
                 _bombMesh = Instantiate(BombNoteControllerPatch.BombMesh);
                 _bombMesh.gameObject.transform.SetParent(_noteCube, false);
-                
+            }
+            if (this.Controller.gameNoteType == GameNoteController.GameNoteType.Ghost) {
+                this._bombMesh.enabled = false;
+                return;
             }
             // ここで置き換えるノーツの設定をする（ボムにするとかなんとか）
             if (Senders.TryDequeue(out var sender)) {
@@ -70,6 +64,8 @@ namespace StreamPartyCommand.Models
                 _noteMesh.forceRenderingOff = false;
                 _bombMesh.enabled = false;
             }
+            var color = this._colorManager.ColorForType(noteController.noteData.colorType);
+            this._bombMesh.material.SetColor("_SimpleColor", color);
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
@@ -78,11 +74,13 @@ namespace StreamPartyCommand.Models
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // メンバ変数
         private Transform _noteCube;
-        private ColorNoteVisuals _colorNoteVisuals;
         [DoesNotRequireDomainReloadInit]
-        protected static readonly int _colorId = Shader.PropertyToID("_Color");
+        protected static readonly int _noteColorId = Shader.PropertyToID("_Color");
+        protected static readonly int _bombColorId = Shader.PropertyToID("_SimpleColor");
+        private MaterialPropertyBlock _bombMaterialPropertyBlock = new MaterialPropertyBlock();
         private MeshRenderer _bombMesh;
         private MeshRenderer _noteMesh;
+        private ColorManager _colorManager;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄

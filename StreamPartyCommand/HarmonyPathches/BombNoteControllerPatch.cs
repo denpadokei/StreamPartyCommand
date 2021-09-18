@@ -12,12 +12,10 @@ namespace StreamPartyCommand.HarmonyPathches
     [HarmonyPatch(typeof(BombNoteController), "Awake")]
     public class BombNoteControllerPatch
     {
-        public static Transform BombMeshTransceForm { get; private set; }
         public static MeshRenderer BombMesh { get; private set; }
         public static void Postfix(BombNoteController __instance)
         {
-            if (BombMeshTransceForm == null) {
-                BombMeshTransceForm = __instance.gameObject.transform.Find("Mesh");
+            if (BombMesh == null) {
                 BombMesh = __instance.GetComponentInChildren<MeshRenderer>();
             }
         }
