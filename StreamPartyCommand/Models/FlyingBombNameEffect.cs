@@ -13,16 +13,22 @@ namespace StreamPartyCommand.Models
     {
         private void Awake()
         {
-            this._textGO = new GameObject("DummyBombText", typeof(TextMeshPro));
-            this._textGO.transform.SetParent(this.transform, false);
-            this._textGO.transform.localPosition = Vector3.zero;
-            this._text = this._textGO.GetComponent<TextMeshPro>();
-            this._text.fontSize = 30;
+            Logger.Debug("Awake call");
+            try {
+                //this._rootGO = new GameObject(nameof(FlyingBombNameEffect));
+                //this.transform.SetParent(this._rootGO.transform, false);
+                this._text = gameObject.AddComponent<TextMeshPro>();
+                this._text.alignment = TextAlignmentOptions.Center;
+                this._text.fontSize = 30;
+            }
+            catch (Exception e) {
+                Logger.Error(e);
+            }
         }
 
         private void OnDestroy()
         {
-            Destroy(this._textGO);
+            Logger.Debug("OnDestroy call");
         }
 
         public virtual void InitAndPresent(string text, float duration, Vector3 targetPos, Quaternion rotation, Color color, float fontSize, bool shake)
@@ -38,13 +44,9 @@ namespace StreamPartyCommand.Models
             this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
         }
 
-        private GameObject _textGO;
         private TextMeshPro _text;
         private Color _color;
         private AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
-        public class Pool : MonoMemoryPool<FlyingBombNameEffect>
-        {
-
-        }
+        private GameObject _rootGO;
     }
 }

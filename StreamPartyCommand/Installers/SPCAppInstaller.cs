@@ -1,4 +1,6 @@
-﻿using StreamPartyCommand.Models;
+﻿using SiraUtil;
+using StreamPartyCommand.CommandControllers;
+using StreamPartyCommand.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace StreamPartyCommand.Installers
     {
         public override void InstallBindings()
         {
-            this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsCached();
+            this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsSingle().NonLazy();
+            this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
         }
     }
 }

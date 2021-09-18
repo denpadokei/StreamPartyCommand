@@ -134,7 +134,7 @@
   <ItemGroup>
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
-    <Compile Include="HarmonyPathches\SpawnBasicNotePatch.cs" />
+    <Compile Include="HarmonyPathches\GameNoteControllerPatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
@@ -144,7 +144,6 @@
     <Compile Include="Models\ChatCoreWrapper.cs" />
     <Compile Include="Models\DummyBomb.cs" />
     <Compile Include="Models\DummyBombExprosionEffect.cs" />
-    <Compile Include="Models\DummyBombObjectSpowner.cs" />
     <Compile Include="Models\FontAssetReader.cs" />
     <Compile Include="CommandControllers\LightColorController.cs" />
     <Compile Include="CommandControllers\NoteColorController.cs" />
@@ -159,7 +158,6 @@
     <Compile Include="Staics\Enums.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\NoteDataCreater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />

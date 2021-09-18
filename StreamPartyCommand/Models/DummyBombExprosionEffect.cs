@@ -16,14 +16,20 @@ namespace StreamPartyCommand.Models
 		}
 		private void OnDestroy()
         {
-			Destroy(this._debrisPS.gameObject);
-			Destroy(this._explosionPS.gameObject);
+            try {
+				Destroy(this._debrisPS.gameObject);
+				Destroy(this._explosionPS.gameObject);
+			}
+            catch (Exception e) {
+				Logger.Error(e);
+            }
         }
 		public virtual void SpawnExplosion(Vector3 pos)
 		{
+			Logger.Debug("SpawnExplosion call");
 			this._emitParams.position = pos;
-			this._debrisPS.Emit(this._emitParams, this._debrisCount);
-			this._explosionPS.Emit(this._emitParams, this._explosionParticlesCount);
+			//this._debrisPS.Emit(this._emitParams, this._debrisCount);
+			//this._explosionPS.Emit(this._emitParams, this._explosionParticlesCount);
 		}
 		public void SetEffect(ParticleSystem debri, ParticleSystem explosion)
         {
