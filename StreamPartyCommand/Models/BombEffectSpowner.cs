@@ -29,18 +29,15 @@ namespace StreamPartyCommand.Models
         #region // パブリックメソッド
         public void Start()
         {
-            Logger.Debug("Start call.");
             this._beatmapObjectManager.noteWasCutEvent += this.OnNoteWasCutEvent;
         }
         public void OnDestroy()
         {
-            Logger.Debug("OnDestroy call.");
             this._beatmapObjectManager.noteWasCutEvent -= this.OnNoteWasCutEvent;
         }
 
         public void HandleFlyingObjectEffectDidFinish(FlyingObjectEffect flyingObjectEffect)
         {
-            Logger.Debug("HandleFlyingObjectEffectDidFinish call.");
             flyingObjectEffect.didFinishEvent.Remove(this);
             this._flyingBombNameEffectPool.Free(flyingObjectEffect as FlyingBombNameEffect);
         }
@@ -49,7 +46,6 @@ namespace StreamPartyCommand.Models
         #region // プライベートメソッド
         private void OnNoteWasCutEvent(NoteController noteController, in NoteCutInfo noteCutInfo)
         {
-            Logger.Debug("OnNoteWasCutEvent call.");
             var dummyBomb = noteController.gameObject.GetComponent<DummyBomb>();
             if (dummyBomb == null) {
                 return;
@@ -71,7 +67,6 @@ namespace StreamPartyCommand.Models
         private BeatmapObjectManager _beatmapObjectManager;
         private DummyBombExprosionEffect _dummyBombExprosionEffect;
         private ObjectMemoryPool<FlyingBombNameEffect> _flyingBombNameEffectPool;
-        private BombCommandController _commandController;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄
@@ -80,7 +75,6 @@ namespace StreamPartyCommand.Models
         {
             this._beatmapObjectManager = manager;
             this._dummyBombExprosionEffect = effect;
-            this._commandController = bombCommandController;
             this._flyingBombNameEffectPool = new ObjectMemoryPool<FlyingBombNameEffect>(8);
         }
         #endregion

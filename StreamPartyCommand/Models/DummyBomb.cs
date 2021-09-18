@@ -77,7 +77,6 @@ namespace StreamPartyCommand.Models
         [DoesNotRequireDomainReloadInit]
         protected static readonly int _noteColorId = Shader.PropertyToID("_Color");
         protected static readonly int _bombColorId = Shader.PropertyToID("_SimpleColor");
-        private MaterialPropertyBlock _bombMaterialPropertyBlock = new MaterialPropertyBlock();
         private MeshRenderer _bombMesh;
         private MeshRenderer _noteMesh;
         private ColorManager _colorManager;

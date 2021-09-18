@@ -13,10 +13,7 @@ namespace StreamPartyCommand.Models
     {
         private void Awake()
         {
-            Logger.Debug("Awake call");
             try {
-                //this._rootGO = new GameObject(nameof(FlyingBombNameEffect));
-                //this.transform.SetParent(this._rootGO.transform, false);
                 this._text = gameObject.AddComponent<TextMeshPro>();
                 this._text.alignment = TextAlignmentOptions.Center;
                 this._text.fontSize = 30;
@@ -25,12 +22,6 @@ namespace StreamPartyCommand.Models
                 Logger.Error(e);
             }
         }
-
-        private void OnDestroy()
-        {
-            Logger.Debug("OnDestroy call");
-        }
-
         public virtual void InitAndPresent(string text, float duration, Vector3 targetPos, Quaternion rotation, Color color, float fontSize, bool shake)
         {
             this._color = color;

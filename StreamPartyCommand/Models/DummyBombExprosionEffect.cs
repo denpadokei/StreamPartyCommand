@@ -26,7 +26,6 @@ namespace StreamPartyCommand.Models
         }
 		public virtual void SpawnExplosion(Vector3 pos)
 		{
-			Logger.Debug("SpawnExplosion call");
 			this._emitParams.position = pos;
 			//this._debrisPS.Emit(this._emitParams, this._debrisCount);
 			//this._explosionPS.Emit(this._emitParams, this._explosionParticlesCount);
