@@ -47,6 +47,5 @@ namespace StreamPartyCommand.Models
         private TextMeshPro _text;
         private Color _color;
         private AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
-        private GameObject _rootGO;
     }
 }

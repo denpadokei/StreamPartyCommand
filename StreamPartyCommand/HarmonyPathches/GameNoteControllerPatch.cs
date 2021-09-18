@@ -12,10 +12,13 @@ namespace StreamPartyCommand.HarmonyPathches
     [HarmonyPatch(typeof(GameNoteController), "Awake")]
     public class GameNoteControllerPatch
     {
+        
+
         public static void Postfix(GameNoteController __instance)
         {
             Logger.Debug("GameNoteController.Awake call");
-            __instance.gameObject.AddComponent<DummyBomb>();
+            var dummybomb = __instance.gameObject.AddComponent<DummyBomb>();
+            //dummybomb.DummyBombMesh = BombMesh;
         }
     }
 }

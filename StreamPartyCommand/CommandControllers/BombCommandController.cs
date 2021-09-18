@@ -1,5 +1,6 @@
 ﻿using ChatCore.Interfaces;
 using StreamPartyCommand.Interfaces;
+using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using System;
 using System.Collections.Concurrent;
@@ -16,7 +17,6 @@ namespace StreamPartyCommand.CommandControllers
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // プロパティ
         public string Key => CommandKey.BOMB;
-        public ConcurrentQueue<string> Senders { get; } = new ConcurrentQueue<string>();
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // コマンド
@@ -31,7 +31,7 @@ namespace StreamPartyCommand.CommandControllers
         #region // パブリックメソッド
         public void Execute(IChatService service, IChatMessage message)
         {
-            this.Senders.Enqueue(message.Sender.DisplayName);
+            DummyBomb.Senders.Enqueue(message.Sender.DisplayName);
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*

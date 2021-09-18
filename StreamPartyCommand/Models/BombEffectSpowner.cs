@@ -50,11 +50,11 @@ namespace StreamPartyCommand.Models
         private void OnNoteWasCutEvent(NoteController noteController, in NoteCutInfo noteCutInfo)
         {
             Logger.Debug("OnNoteWasCutEvent call.");
-            //var dummyBomb = noteController.gameObject.GetComponent<DummyBomb>();
-            //if (dummyBomb == null) {
-            //    return;
-            //}
-            if (!this._commandController.Senders.TryDequeue(out var senderName)) {
+            var dummyBomb = noteController.gameObject.GetComponent<DummyBomb>();
+            if (dummyBomb == null) {
+                return;
+            }
+            if (string.IsNullOrEmpty(dummyBomb.Text)) {
                 return;
             }
             //dummyBomb.Text = senderName;
@@ -63,7 +63,7 @@ namespace StreamPartyCommand.Models
             effect.transform.localPosition = noteCutInfo.cutPoint;
             effect.didFinishEvent.Add(this);
             var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
-            effect.InitAndPresent(senderName, 1f, targetpos, noteController.worldRotation, Color.white, 10, false);
+            effect.InitAndPresent(dummyBomb.Text, 1f, targetpos, noteController.worldRotation, Color.white, 10, false);
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
