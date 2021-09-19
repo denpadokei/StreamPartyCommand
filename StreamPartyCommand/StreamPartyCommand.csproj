@@ -75,6 +75,11 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="SongCore">
+      <HintPath>$(BeatSaberDir)\Plugins\SongCore.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -146,11 +151,13 @@
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="HarmonyPathches\BombNoteControllerPatch.cs" />
     <Compile Include="HarmonyPathches\GameNoteControllerPatch.cs" />
+    <Compile Include="HarmonyPathches\StretchableObstaclePatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
     <Compile Include="CommandControllers\BombCommandController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Models\BeatmapUtil.cs" />
     <Compile Include="Models\BombEffectSpowner.cs" />
     <Compile Include="Models\ChatCoreWrapper.cs" />
     <Compile Include="Models\DummyBomb.cs" />
@@ -173,6 +180,8 @@
     <Compile Include="Staics\Enums.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ColorUtil.cs" />
+    <Compile Include="Utilities\CustomNoteUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />

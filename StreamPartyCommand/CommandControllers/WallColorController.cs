@@ -1,6 +1,8 @@
 ﻿using ChatCore.Interfaces;
+using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Staics;
+using StreamPartyCommand.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +19,19 @@ namespace StreamPartyCommand.CommandControllers
 
         public void Execute(IChatService service, IChatMessage message)
         {
-
+            var messageArray = message.Message.Split(' ');
+            if (messageArray.Length != 2) {
+                return;
+            }
+            if (ColorUtil.Colors.TryGetValue(messageArray[1], out var color)) {
+                StretchableObstaclePatch.WallColor = color;
+            }
         }
         [Inject]
-        public void Constractor(ColorScheme scheme)
+        public void Constractor(ColorManager manager)
         {
-            this._obstaclesColor = scheme.obstaclesColor;
+            StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
-        private Color _obstaclesColor;
+        
 	}
 }

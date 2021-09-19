@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace StreamPartyCommand.Utilities
+{
+    public class ColorUtil
+    {
+        public static ReadOnlyDictionary<string, Color> Colors { get; }
+        static ColorUtil()
+        {
+            var dic = new Dictionary<string, Color>();
+            foreach (var colorProp in typeof(Color).GetProperties(BindingFlags.Public | BindingFlags.Static)) {
+                var color = colorProp.GetValue(typeof(Color));
+                if (color is Color value) {
+                    dic.Add(colorProp.Name, value);
+                }
+            }
+            Colors = new ReadOnlyDictionary<string, Color>(dic);
+        }
+    }
+}

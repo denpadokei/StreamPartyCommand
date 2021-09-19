@@ -17,6 +17,7 @@ namespace StreamPartyCommand.Models
                 this._text = gameObject.AddComponent<TextMeshPro>();
                 this._text.alignment = TextAlignmentOptions.Center;
                 this._text.fontSize = 30;
+                this.gameObject.layer = 5;
             }
             catch (Exception e) {
                 Logger.Error(e);

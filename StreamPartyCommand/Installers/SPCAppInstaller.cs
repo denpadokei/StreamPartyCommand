@@ -15,7 +15,6 @@ namespace StreamPartyCommand.Installers
         public override void InstallBindings()
         {
             this.Container.BindInterfacesAndSelfTo<ChatCoreWrapper>().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
         }
     }
 }
