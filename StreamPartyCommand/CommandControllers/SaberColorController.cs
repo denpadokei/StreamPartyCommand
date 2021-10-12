@@ -21,7 +21,7 @@ namespace StreamPartyCommand.CommandControllers
         public string Key => CommandKey.SABER_COLOR;
         private void Start()
         {
-            this.enable = !this._util.IsChroma;
+            this.enable = !this._util.IsNoodle && !this._util.IsChroma;
         }
         public void Execute(IChatService service, IChatMessage message)
         {

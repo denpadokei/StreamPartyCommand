@@ -21,7 +21,7 @@ namespace StreamPartyCommand.CommandControllers
 
         private void Start()
         {
-            StretchableObstaclePatch.Enable = !this._util.IsChroma;
+            StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         }
         public void Execute(IChatService service, IChatMessage message)
         {

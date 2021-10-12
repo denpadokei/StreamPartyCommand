@@ -19,7 +19,7 @@ namespace StreamPartyCommand.CommandControllers
     {
         private void Start()
         {
-            GetNormalColorPatch.Enable = !this._util.IsChroma;
+            GetNormalColorPatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         }
 
         public string Key => CommandKey.LIGHT_COLOR;

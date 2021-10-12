@@ -19,7 +19,7 @@ namespace StreamPartyCommand.CommandControllers
     {
         private void Start()
         {
-            ColorManagerColorForTypePatch.Enable = !this._util.IsChroma;
+            ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         }
         public string Key => CommandKey.NOTE_COLOR;
 
