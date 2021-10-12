@@ -18,9 +18,6 @@ namespace StreamPartyCommand.Models
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // プロパティ
         public GameNoteController Controller { get; private set; }
-        /// <summary>説明 を取得、設定</summary>
-        private string text_ = "";
-        /// <summary>説明 を取得、設定</summary>
         public string Text { get; set; }
         public static ConcurrentQueue<string> Senders = new ConcurrentQueue<string>();
         #endregion

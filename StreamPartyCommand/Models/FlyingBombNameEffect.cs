@@ -15,6 +15,9 @@ namespace StreamPartyCommand.Models
         {
             try {
                 this._text = gameObject.AddComponent<TextMeshPro>();
+                if (FontAssetReader.instance.MainFont != null) {
+                    this._text.font = FontAssetReader.instance.MainFont;
+                }
                 this._text.alignment = TextAlignmentOptions.Center;
                 this._text.fontSize = 30;
                 this.gameObject.layer = 5;

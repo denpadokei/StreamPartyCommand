@@ -4,6 +4,7 @@ using IPA.Config;
 using IPA.Config.Stores;
 using SiraUtil.Zenject;
 using StreamPartyCommand.Installers;
+using StreamPartyCommand.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,7 @@ namespace StreamPartyCommand
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
+            FontAssetReader.TouchInstance();
             //new GameObject("StreamPartyCommandController").AddComponent<StreamPartyCommandController>();
         }
 
