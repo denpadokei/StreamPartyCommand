@@ -12,34 +12,19 @@ namespace StreamPartyCommand.Models
 		public virtual void Awake()
 		{
 			this._emitParams = default(ParticleSystem.EmitParams);
+			this._emitParams.startColor = Color.white;
 			this._emitParams.applyShapeToPosition = true;
 		}
-		private void OnDestroy()
-        {
-            try {
-				Destroy(this._debrisPS.gameObject);
-				Destroy(this._explosionPS.gameObject);
-			}
-            catch (Exception e) {
-				Logger.Error(e);
-            }
-        }
 		public virtual void SpawnExplosion(Vector3 pos)
 		{
 			this._emitParams.position = pos;
-			//this._debrisPS.Emit(this._emitParams, this._debrisCount);
-			//this._explosionPS.Emit(this._emitParams, this._explosionParticlesCount);
+            try {
+				ParticleAssetLoader.instance.Particle.Emit(this._emitParams, 250);
+			}
+            catch (Exception e) {
+				Plugin.Log.Error(e);
+            }
 		}
-		public void SetEffect(ParticleSystem debri, ParticleSystem explosion)
-        {
-			this._debrisPS = debri;
-			this._explosionPS = explosion;
-        }
-		protected ParticleSystem _debrisPS;
-		protected ParticleSystem _explosionPS;
-		protected int _debrisCount = 40;
-		protected int _explosionParticlesCount = 70;
 		protected ParticleSystem.EmitParams _emitParams;
-		protected ParticleSystem.EmitParams _explosionPSEmitParams;
 	}
 }

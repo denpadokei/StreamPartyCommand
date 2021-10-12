@@ -64,6 +64,7 @@
     </ItemGroup>
     <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(ArtifactDestination)\Plugins\$(AssemblyName).dll" />
     <Copy SourceFiles="$(OutDir)Assets\neontubes2 sdf.assets" DestinationFiles="$(ArtifactDestination)\UserData\SPCFontAssets\Main\neontubes2 sdf.assets" />
+    <Copy SourceFiles="$(OutDir)Assets\particle system.particle" DestinationFiles="$(ArtifactDestination)\UserData\SPCParticleAssets\particle system.particle" />
     <Message Text="PluginVersion: $(PluginVersion), AssemblyVersion: $(AssemblyVersion), GameVersion: $(GameVersion)" Importance="high" />
     <Delete Files="@(OldZips)" TreatErrorsAsWarnings="true" ContinueOnError="true" />
     <ZipDir SourceDirectory="$(ArtifactDestination)" DestinationFile="$(DestinationDirectory)$(ArtifactName).zip" />

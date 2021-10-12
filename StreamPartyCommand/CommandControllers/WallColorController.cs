@@ -2,6 +2,7 @@
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
+using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
 using System;
@@ -18,6 +19,10 @@ namespace StreamPartyCommand.CommandControllers
     {
         public string Key => CommandKey.WALL_COLOR;
 
+        private void Start()
+        {
+            StretchableObstaclePatch.Enable = !this._util.IsChroma;
+        }
         public void Execute(IChatService service, IChatMessage message)
         {
             if (PluginConfig.Instance.IsWallColorEnable != true) {
@@ -31,11 +36,12 @@ namespace StreamPartyCommand.CommandControllers
                 StretchableObstaclePatch.WallColor = color;
             }
         }
+        private BeatmapUtil _util;
         [Inject]
-        public void Constractor(ColorManager manager)
+        public void Constractor(ColorManager manager, BeatmapUtil util)
         {
+            this._util = util;
             StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
-        
 	}
 }

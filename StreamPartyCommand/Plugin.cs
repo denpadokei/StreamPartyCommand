@@ -48,6 +48,7 @@ namespace StreamPartyCommand
         {
             Log.Debug("OnApplicationStart");
             FontAssetReader.TouchInstance();
+            ParticleAssetLoader.TouchInstance();
             //new GameObject("StreamPartyCommandController").AddComponent<StreamPartyCommandController>();
         }
 

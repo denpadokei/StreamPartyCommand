@@ -183,6 +183,7 @@
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
     <Compile Include="Models\ObjectMemoryPool.cs" />
+    <Compile Include="Models\ParticleAssetLoader.cs" />
     <Compile Include="Models\WallColorChanger.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -201,6 +202,9 @@
     <EmbeddedResource Include="Assets\neontubes2 sdf.assets">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Assets\particle system.particle">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="StreamPartyCommand.csproj.user" Condition="Exists('StreamPartyCommand.csproj.user')" />

@@ -13,6 +13,9 @@ namespace StreamPartyCommand.HarmonyPathches
     {
         public static void Postfix(ref int beatmapEventValue, ref bool colorBoost, ref Color __result, LightSwitchEventEffect __instance)
         {
+            if (!Enable) {
+                return;
+            }
             if (!__instance.IsColor0(beatmapEventValue)) {
                 __result = LeftColor;
             }
@@ -20,6 +23,7 @@ namespace StreamPartyCommand.HarmonyPathches
                 __result = RightColor;
             }
         }
+        internal static bool Enable { get; set; }
         internal static Color RightColor { get; set; }
         internal static Color LeftColor { get; set; }
     }

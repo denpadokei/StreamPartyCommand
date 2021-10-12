@@ -13,6 +13,10 @@ namespace StreamPartyCommand.HarmonyPathches
     {
         public static bool Prefix(ref ColorType type, ref Color __result)
         {
+            if (!Enable) {
+                return true;
+            }
+
             switch (type) {
                 case ColorType.ColorA:
                     __result = LeftColor;
@@ -28,6 +32,7 @@ namespace StreamPartyCommand.HarmonyPathches
             }
             return false;
         }
+        internal static bool Enable { get; set; }
         internal static Color LeftColor { get; set; }
         internal static Color RightColor { get; set; }
     }

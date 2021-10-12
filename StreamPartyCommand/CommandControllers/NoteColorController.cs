@@ -2,6 +2,7 @@
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
+using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
 using System;
@@ -16,6 +17,10 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class NoteColorController : MonoBehaviour, ICommandable
     {
+        private void Start()
+        {
+            ColorManagerColorForTypePatch.Enable = !this._util.IsChroma;
+        }
         public string Key => CommandKey.NOTE_COLOR;
 
         public void Execute(IChatService service, IChatMessage message)
@@ -36,10 +41,11 @@ namespace StreamPartyCommand.CommandControllers
                 ColorManagerColorForTypePatch.RightColor = color1;
             }
         }
-
+        private BeatmapUtil _util;
         [Inject]
-        public void Constractor(ColorScheme scheme)
+        public void Constractor(ColorScheme scheme, BeatmapUtil util)
         {
+            this._util = util;
             ColorManagerColorForTypePatch.LeftColor = scheme.saberAColor;
             ColorManagerColorForTypePatch.RightColor = scheme.saberBColor;
         }
