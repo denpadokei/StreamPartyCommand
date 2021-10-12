@@ -76,7 +76,7 @@ namespace StreamPartyCommand.Models
             effect.transform.localPosition = Vector3.zero;
             effect.didFinishEvent.Add(this);
             var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
-            effect.InitAndPresent(dummyBomb.Text, 0.7f, targetpos, noteController.worldRotation, Color.red, 5, false);
+            effect.InitAndPresent(dummyBomb.Text, 0.7f, targetpos, noteController.worldRotation, Color.red, 10, false);
             dummyBomb.Text = "";
         }
         #endregion
