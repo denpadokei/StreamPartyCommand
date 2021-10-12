@@ -1,6 +1,9 @@
 ﻿using ChatCore.Interfaces;
+using StreamPartyCommand.Configuration;
+using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Staics;
+using StreamPartyCommand.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,17 +20,28 @@ namespace StreamPartyCommand.CommandControllers
 
         public void Execute(IChatService service, IChatMessage message)
         {
-
+            if (PluginConfig.Instance.IsPratformColorEnable != true) {
+                return;
+            }
+            var prams = message.Message.Split(' ');
+            if (prams.Length != 3) {
+                return;
+            }
+            var leftColor = prams[1];
+            var rightColor = prams[2];
+            if (ColorUtil.Colors.TryGetValue(leftColor, out var color0)) {
+                GetNormalColorPatch.LeftColor = color0;
+            }
+            if (ColorUtil.Colors.TryGetValue(rightColor, out var color1)) {
+                GetNormalColorPatch.RightColor = color1;
+            }
         }
 
         [Inject]
         public void Constractor(ColorScheme scheme)
         {
-            this._environmentColor0 = scheme.environmentColor0;
-            this._environmentColor1 = scheme.environmentColor1;
+            GetNormalColorPatch.RightColor = scheme.environmentColor0;
+            GetNormalColorPatch.LeftColor = scheme.environmentColor1;
         }
-
-		private Color _environmentColor0;
-		private Color _environmentColor1;
 	}
 }

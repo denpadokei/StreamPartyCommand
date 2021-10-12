@@ -1,23 +1,52 @@
-﻿using ChatCore.Interfaces;
+﻿using BeatSaberMarkupLanguage;
+using BeatSaberMarkupLanguage.Attributes;
+using BeatSaberMarkupLanguage.Components;
+using BeatSaberMarkupLanguage.Settings;
+using BeatSaberMarkupLanguage.ViewControllers;
 using StreamPartyCommand.Configuration;
-using StreamPartyCommand.Interfaces;
-using StreamPartyCommand.Models;
-using StreamPartyCommand.Staics;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using Zenject;
 
-namespace StreamPartyCommand.CommandControllers
+namespace StreamPartyCommand.Views
 {
-    public class BombCommandController : MonoBehaviour, ICommandable
+    internal class SettingViewController : BSMLAutomaticViewController, IInitializable
     {
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // プロパティ
-        public string Key => CommandKey.BOMB;
+        // For this method of setting the ResourceName, this class must be the first class in the file.
+        public string ResourceName => string.Join(".", GetType().Namespace, GetType().Name);
+        [UIValue("is-bomb-enable")]
+        public virtual bool IsBombEnable
+        {
+            get => PluginConfig.Instance.IsBombEnable;
+            set => PluginConfig.Instance.IsBombEnable = value;
+        }
+        [UIValue("is-sabercolor-enable")]
+        public virtual bool IsSaberColorEnable
+        {
+            get => PluginConfig.Instance.IsSaberColorEnable;
+            set => PluginConfig.Instance.IsSaberColorEnable = value;
+        }
+        [UIValue("is-wallcolor-enable")]
+        public virtual bool IsWallColorEnable
+        {
+            get => PluginConfig.Instance.IsWallColorEnable;
+            set => PluginConfig.Instance.IsWallColorEnable = value;
+        }
+        [UIValue("is-notecolor-enable")]
+        public virtual bool IsNoteColorEnable
+        {
+            get => PluginConfig.Instance.IsNoteColorEnable;
+            set => PluginConfig.Instance.IsNoteColorEnable = value;
+        }
+        [UIValue("is-pratformcolor-enable")]
+        public virtual bool IsPratformColorEnable
+        {
+            get => PluginConfig.Instance.IsPratformColorEnable;
+            set => PluginConfig.Instance.IsPratformColorEnable = value;
+        }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // コマンド
@@ -30,12 +59,9 @@ namespace StreamPartyCommand.CommandControllers
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // パブリックメソッド
-        public void Execute(IChatService service, IChatMessage message)
+        public void Initialize()
         {
-            if (PluginConfig.Instance.IsBombEnable != true) {
-                return;
-            }
-            DummyBomb.Senders.Enqueue(message.Sender.DisplayName);
+            BSMLSettings.instance.AddSettingsMenu("StreamPartyCommand", this.ResourceName, this);
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*

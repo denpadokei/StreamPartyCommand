@@ -17,8 +17,8 @@ namespace StreamPartyCommand.HarmonyPathches
         {
             if (!BombMesh) {
                 BombMesh = GameObject.Instantiate(__instance.GetComponentInChildren<MeshRenderer>());
-                BombMesh.transform.SetParent(null);
-                BombMesh.enabled = true;
+                BombMesh.transform.SetParent(null, false);
+                BombMesh.enabled = false;
             }
         }
     }

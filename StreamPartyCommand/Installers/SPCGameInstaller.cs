@@ -29,6 +29,9 @@ namespace StreamPartyCommand.Installers
             this.Container.BindInterfacesAndSelfTo<CustomNoteUtil>().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
             this.Container.BindInterfacesAndSelfTo<WallColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            this.Container.BindInterfacesAndSelfTo<LightColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            this.Container.BindInterfacesAndSelfTo<NoteColorController>().FromNewComponentOnNewGameObject().AsSingle();
+            this.Container.BindInterfacesAndSelfTo<SaberColorController>().FromNewComponentOnNewGameObject().AsSingle();
             //this.Container.BindMemoryPool<DummyBomb, DummyBomb.Pool>().WithInitialSize(16)
         }
     }

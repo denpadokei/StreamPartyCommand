@@ -18,7 +18,13 @@ namespace StreamPartyCommand.Utilities
         [Inject]
         public void Init(DiContainer container)
         {
-            _loader = container.TryResolve(Type.GetType("CustomNotes.Managers.NoteAssetLoader, CustomNotes"));
+            var loaderType = Type.GetType("CustomNotes.Managers.NoteAssetLoader, CustomNotes");
+            if (loaderType == null) {
+                _loader = null;
+            }
+            else {
+                _loader = container.TryResolve(loaderType);
+            }
         }
 
         static CustomNoteUtil()

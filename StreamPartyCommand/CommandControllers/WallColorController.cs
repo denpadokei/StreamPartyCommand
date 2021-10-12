@@ -1,4 +1,5 @@
 ﻿using ChatCore.Interfaces;
+using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Staics;
@@ -19,6 +20,9 @@ namespace StreamPartyCommand.CommandControllers
 
         public void Execute(IChatService service, IChatMessage message)
         {
+            if (PluginConfig.Instance.IsWallColorEnable != true) {
+                return;
+            }
             var messageArray = message.Message.Split(' ');
             if (messageArray.Length != 2) {
                 return;

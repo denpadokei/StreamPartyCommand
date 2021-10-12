@@ -1,6 +1,10 @@
 ﻿using ChatCore.Interfaces;
+using SiraUtil;
+using StreamPartyCommand.Configuration;
+using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Staics;
+using StreamPartyCommand.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +21,27 @@ namespace StreamPartyCommand.CommandControllers
 
         public void Execute(IChatService service, IChatMessage message)
         {
-
+            if (PluginConfig.Instance.IsSaberColorEnable != true) {
+                return;
+            }
+            var prams = message.Message.Split(' ');
+            if (prams.Length != 3) {
+                return;
+            }
+            var leftColor = prams[1];
+            var rightColor = prams[2];
+            if (ColorUtil.Colors.TryGetValue(leftColor, out var color0)) {
+                this._saberManager.leftSaber.ChangeColor(color0);
+            }
+            if (ColorUtil.Colors.TryGetValue(rightColor, out var color1)) {
+                this._saberManager.rightSaber.ChangeColor(color1);
+            }
         }
         [Inject]
-        public void Constractor(ColorScheme scheme)
+        public void Constractor(ColorScheme scheme, SaberManager saberManager)
         {
-            this._saberAColor = scheme.saberAColor;
-            this._saberBColor = scheme.saberBColor;
+            this._saberManager = saberManager;
         }
-        private Color _saberAColor;
-		private Color _saberBColor;
-	}
+        private SaberManager _saberManager;
+    }
 }

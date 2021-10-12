@@ -15,7 +15,6 @@ namespace StreamPartyCommand.HarmonyPathches
         public static void Postfix(GameNoteController __instance)
         {
             __instance.gameObject.AddComponent<DummyBomb>();
-            __instance.gameObject.AddComponent<NoteColorController>();
         }
     }
 }

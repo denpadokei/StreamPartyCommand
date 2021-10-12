@@ -50,6 +50,11 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="BSML">
+      <HintPath>$(BeatSaberDir)\Plugins\BSML.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="ChatCore">
       <HintPath>$(BeatSaberDir)\Libs\ChatCore.dll</HintPath>
       <Private>False</Private>
@@ -150,10 +155,13 @@
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="HarmonyPathches\BombNoteControllerPatch.cs" />
+    <Compile Include="HarmonyPathches\ColorManagerPatch.cs" />
     <Compile Include="HarmonyPathches\GameNoteControllerPatch.cs" />
+    <Compile Include="HarmonyPathches\GetNormalColorPatch.cs" />
     <Compile Include="HarmonyPathches\StretchableObstaclePatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
     <Compile Include="Installers\SPCGameInstaller.cs" />
+    <Compile Include="Installers\SPCMenuInstaller.cs" />
     <Compile Include="Interfaces\ICommandable.cs" />
     <Compile Include="CommandControllers\BombCommandController.cs" />
     <Compile Include="Logger.cs" />
@@ -169,10 +177,7 @@
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
-    <Compile Include="Models\LightColorController.cs" />
-    <Compile Include="Models\NoteColorController.cs" />
     <Compile Include="Models\ObjectMemoryPool.cs" />
-    <Compile Include="Models\SaberColorController.cs" />
     <Compile Include="Models\WallColorChanger.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -182,6 +187,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ColorUtil.cs" />
     <Compile Include="Utilities\CustomNoteUtil.cs" />
+    <Compile Include="Views\SettingViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
@@ -191,6 +197,9 @@
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="StreamPartyCommand.csproj.user" Condition="Exists('StreamPartyCommand.csproj.user')" />
+    <EmbeddedResource Include="Views\SettingViewController.bsml">
+      <DependentUpon>SettingViewController.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BeatSaberModdingTools.Tasks">

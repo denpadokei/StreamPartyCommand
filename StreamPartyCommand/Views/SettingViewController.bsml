@@ -1,0 +1,9 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <settings-container>
+    <bool-setting text='Is bomb enable.' value='is-bomb-enable'></bool-setting>
+    <bool-setting text='Is saber color enable.' value='is-sabercolor-enable'></bool-setting>
+    <bool-setting text='Is wall color enable.' value='is-wallcolor-enable'></bool-setting>
+    <bool-setting text='Is note color enable.' value='is-notecolor-enable'></bool-setting>
+    <bool-setting text='Is pratform color enable.' value='is-pratformcolor-enable'></bool-setting>
+  </settings-container>
+</bg>

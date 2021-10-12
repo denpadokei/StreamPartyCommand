@@ -7,6 +7,13 @@ namespace StreamPartyCommand.Configuration
     internal class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
+
+        public virtual bool IsBombEnable { get; set; } = true;
+        public virtual bool IsSaberColorEnable { get; set; } = true;
+        public virtual bool IsWallColorEnable { get; set; } = true;
+        public virtual bool IsNoteColorEnable { get; set; } = true;
+        public virtual bool IsPratformColorEnable { get; set; } = true;
+
         /// <summary>
         /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
         /// </summary>
