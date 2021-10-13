@@ -5,11 +5,6 @@ using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -17,10 +12,7 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class NoteColorController : MonoBehaviour, ICommandable
     {
-        private void Start()
-        {
-            ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
-        }
+        private void Start() => ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         public string Key => CommandKey.NOTE_COLOR;
 
         public void Execute(IChatService service, IChatMessage message)
@@ -49,5 +41,5 @@ namespace StreamPartyCommand.CommandControllers
             ColorManagerColorForTypePatch.LeftColor = scheme.saberAColor;
             ColorManagerColorForTypePatch.RightColor = scheme.saberBColor;
         }
-	}
+    }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace StreamPartyCommand.Models
@@ -15,13 +12,7 @@ namespace StreamPartyCommand.Models
 
         private static Material _default;
 
-        private static Material Default
-        {
-            get
-            {
-                return _default ?? (_default = Resources.FindObjectsOfTypeAll<Material>().FirstOrDefault(x => x.name == "FireworkExplosion"));
-            }
-        }
+        private static Material Default => _default ?? (_default = Resources.FindObjectsOfTypeAll<Material>().FirstOrDefault(x => x.name == "FireworkExplosion"));
 
         public bool IsInitialized { get; private set; } = false;
 
@@ -72,7 +63,7 @@ namespace StreamPartyCommand.Models
                     Plugin.Log.Debug($"{asset}");
                     if (asset != null) {
                         this.Particle = asset.GetComponent<ParticleSystem>();
-                        var renderer = Particle.GetComponent<ParticleSystemRenderer>();
+                        var renderer = this.Particle.GetComponent<ParticleSystemRenderer>();
                         renderer.material = Instantiate(Default);
                         bundle.Unload(false);
                         break;

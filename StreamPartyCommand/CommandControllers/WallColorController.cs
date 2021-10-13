@@ -5,11 +5,6 @@ using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -19,10 +14,7 @@ namespace StreamPartyCommand.CommandControllers
     {
         public string Key => CommandKey.WALL_COLOR;
 
-        private void Start()
-        {
-            StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
-        }
+        private void Start() => StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         public void Execute(IChatService service, IChatMessage message)
         {
             if (PluginConfig.Instance.IsWallColorEnable != true) {
@@ -43,5 +35,5 @@ namespace StreamPartyCommand.CommandControllers
             this._util = util;
             StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
-	}
+    }
 }

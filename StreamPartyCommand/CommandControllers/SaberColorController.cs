@@ -1,16 +1,10 @@
 ﻿using ChatCore.Interfaces;
 using SiraUtil;
 using StreamPartyCommand.Configuration;
-using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -19,13 +13,10 @@ namespace StreamPartyCommand.CommandControllers
     public class SaberColorController : MonoBehaviour, ICommandable
     {
         public string Key => CommandKey.SABER_COLOR;
-        private void Start()
-        {
-            this.enable = !this._util.IsNoodle && !this._util.IsChroma;
-        }
+        private void Start() => this.enable = !this._util.IsNoodle && !this._util.IsChroma;
         public void Execute(IChatService service, IChatMessage message)
         {
-            if (!enable) {
+            if (!this.enable) {
                 return;
             }
             if (PluginConfig.Instance.IsSaberColorEnable != true) {

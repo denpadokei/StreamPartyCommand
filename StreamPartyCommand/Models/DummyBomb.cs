@@ -1,15 +1,8 @@
 ﻿using IPA.Utilities;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Utilities;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 namespace StreamPartyCommand.Models
 {
@@ -40,7 +33,7 @@ namespace StreamPartyCommand.Models
             if (CustomNoteUtil.TryGetColorNoteVisuals(this.gameObject, out var visuals)) {
                 this._colorManager = visuals.GetField<ColorManager, ColorNoteVisuals>("_colorManager");
             }
-            this._noteMesh = GetComponentInChildren<MeshRenderer>();
+            this._noteMesh = this.GetComponentInChildren<MeshRenderer>();
         }
         protected void OnDestroy()
         {
@@ -65,42 +58,42 @@ namespace StreamPartyCommand.Models
                 if (Senders.TryDequeue(out var sender)) {
                     this.Text = sender;
                     if (this._bombMesh == null && BombNoteControllerPatch.BombMesh != null) {
-                        _bombMesh = Instantiate(BombNoteControllerPatch.BombMesh);
-                        _bombMesh.gameObject.transform.SetParent(_noteCube, false);
+                        this._bombMesh = Instantiate(BombNoteControllerPatch.BombMesh);
+                        this._bombMesh.gameObject.transform.SetParent(this._noteCube, false);
                     }
-                    if (_bombMesh != null) {
-                        _bombMesh.enabled = true;
+                    if (this._bombMesh != null) {
+                        this._bombMesh.enabled = true;
                         var color = this._colorManager.ColorForType(noteController.noteData.colorType);
                         this._bombMesh.material.SetColor("_SimpleColor", color);
                     }
                 }
                 else {
                     this.Text = "";
-                    if (_bombMesh != null) {
-                        _bombMesh.enabled = false;
+                    if (this._bombMesh != null) {
+                        this._bombMesh.enabled = false;
                     }
                 }
             }
             else {
                 if (this._bombMesh == null && BombNoteControllerPatch.BombMesh != null) {
-                    _bombMesh = Instantiate(BombNoteControllerPatch.BombMesh);
-                    _bombMesh.gameObject.transform.SetParent(_noteCube, false);
+                    this._bombMesh = Instantiate(BombNoteControllerPatch.BombMesh);
+                    this._bombMesh.gameObject.transform.SetParent(this._noteCube, false);
                 }
                 if (Senders.TryDequeue(out var sender)) {
                     this.Text = sender;
-                    _noteMesh.forceRenderingOff = true;
-                    if (_bombMesh != null) {
-                        _bombMesh.enabled = true;
+                    this._noteMesh.forceRenderingOff = true;
+                    if (this._bombMesh != null) {
+                        this._bombMesh.enabled = true;
                     }
                 }
                 else {
-                    _noteMesh.forceRenderingOff = false;
-                    if (_bombMesh != null) {
-                        _bombMesh.enabled = false;
+                    this._noteMesh.forceRenderingOff = false;
+                    if (this._bombMesh != null) {
+                        this._bombMesh.enabled = false;
                     }
                 }
                 var color = this._colorManager.ColorForType(noteController.noteData.colorType);
-                if (_bombMesh != null) {
+                if (this._bombMesh != null) {
                     this._bombMesh.material.SetColor("_SimpleColor", color);
                 }
             }

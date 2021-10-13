@@ -1,11 +1,7 @@
 ﻿using BeatSaberMarkupLanguage;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -68,7 +64,7 @@ namespace StreamPartyCommand.Models
                     }
                 }
             }
-            
+
             this.IsInitialized = true;
         }
     }

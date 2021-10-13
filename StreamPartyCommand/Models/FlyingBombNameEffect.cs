@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace StreamPartyCommand.Models
 {
@@ -14,7 +9,7 @@ namespace StreamPartyCommand.Models
         private void Awake()
         {
             try {
-                this._text = gameObject.AddComponent<TextMeshPro>();
+                this._text = this.gameObject.AddComponent<TextMeshPro>();
                 if (FontAssetReader.instance.MainFont != null) {
                     this._text.font = FontAssetReader.instance.MainFont;
                 }
@@ -34,13 +29,10 @@ namespace StreamPartyCommand.Models
             base.InitAndPresent(duration, targetPos, rotation, shake);
         }
 
-        protected override void ManualUpdate(float t)
-        {
-            this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
-        }
+        protected override void ManualUpdate(float t) => this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
 
         private TextMeshPro _text;
         private Color _color;
-        private AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
+        private readonly AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
     }
 }

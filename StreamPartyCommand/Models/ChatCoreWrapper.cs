@@ -5,10 +5,6 @@ using ChatCore.Services.Twitch;
 using StreamPartyCommand.Events;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace StreamPartyCommand.Models
@@ -26,7 +22,7 @@ namespace StreamPartyCommand.Models
         public event OnJoinChannelHandler OnJoinChannel;
 
         private bool disposedValue;
-        
+
 
         public void Initialize()
         {
@@ -40,17 +36,14 @@ namespace StreamPartyCommand.Models
             this.OnMessageReceived += this.ChatCoreWrapper_OnMessageReceived;
         }
 
-        private void ChatCoreWrapper_OnMessageReceived(object sender, ReceiveMessageEventArgs e)
-        {
-            this.RecieveChatMessage.Enqueue(e);
-        }
+        private void ChatCoreWrapper_OnMessageReceived(object sender, ReceiveMessageEventArgs e) => this.RecieveChatMessage.Enqueue(e);
         private void MultiplexerInstance_OnTextMessageReceived(IChatService arg1, IChatMessage arg2) => this.OnMessageReceived?.Invoke(this, new ReceiveMessageEventArgs(arg1, arg2));
         private void MultiplexerInstance_OnJoinChannel(IChatService arg1, IChatChannel arg2) => this.OnJoinChannel?.Invoke(this, new JoinChannelEventArgs(arg1, arg2));
         private void MultiplexerInstance_OnLogin(IChatService obj) => this.OnLogined?.Invoke(this, new LoginEventArgs(obj));
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue) {
+            if (!this.disposedValue) {
                 if (disposing) {
                     this.MultiplexerInstance.OnLogin -= this.MultiplexerInstance_OnLogin;
                     this.MultiplexerInstance.OnJoinChannel -= this.MultiplexerInstance_OnJoinChannel;
@@ -58,12 +51,12 @@ namespace StreamPartyCommand.Models
 
                     this.OnMessageReceived -= this.ChatCoreWrapper_OnMessageReceived;
                 }
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
     }

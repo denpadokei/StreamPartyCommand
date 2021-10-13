@@ -1,13 +1,6 @@
 ﻿using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
-using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -60,10 +53,7 @@ namespace StreamPartyCommand
         /// <summary>
         /// Only ever called once, mainly used to initialize variables.
         /// </summary>
-        private void Awake()
-        {
-            Plugin.Log?.Debug($"{name}: Awake()");
-        }
+        private void Awake() => Plugin.Log?.Debug($"{this.name}: Awake()");
         /// <summary>
         /// Only ever called once on the first frame the script is Enabled. Start is called after any other script's Awake() and before Update().
         /// </summary>
@@ -77,7 +67,7 @@ namespace StreamPartyCommand
         /// </summary>
         private void Update()
         {
-            while (_chatCoreWrapper.RecieveChatMessage.TryDequeue(out var message)) {
+            while (this._chatCoreWrapper.RecieveChatMessage.TryDequeue(out var message)) {
                 if (string.IsNullOrEmpty(message.ChatMessage.Message)) {
                     continue;
                 }
@@ -91,11 +81,7 @@ namespace StreamPartyCommand
         /// <summary>
         /// Called when the script is being destroyed.
         /// </summary>
-        private void OnDestroy()
-        {
-            Plugin.Log?.Debug($"{name}: OnDestroy()");
-
-        }
+        private void OnDestroy() => Plugin.Log?.Debug($"{this.name}: OnDestroy()");
         #endregion
     }
 }

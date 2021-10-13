@@ -5,11 +5,6 @@ using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -17,10 +12,7 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class LightColorController : MonoBehaviour, ICommandable
     {
-        private void Start()
-        {
-            GetNormalColorPatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
-        }
+        private void Start() => GetNormalColorPatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
 
         public string Key => CommandKey.LIGHT_COLOR;
 
@@ -50,5 +42,5 @@ namespace StreamPartyCommand.CommandControllers
             GetNormalColorPatch.RightColor = scheme.environmentColor0;
             GetNormalColorPatch.LeftColor = scheme.environmentColor1;
         }
-	}
+    }
 }

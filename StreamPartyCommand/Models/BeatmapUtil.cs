@@ -1,9 +1,5 @@
 ﻿using IPA.Loader;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace StreamPartyCommand.Models
@@ -17,14 +13,14 @@ namespace StreamPartyCommand.Models
         [Inject]
         public BeatmapUtil(IDifficultyBeatmap level)
         {
-            Currentmap = level;
+            this.Currentmap = level;
         }
 
         public static bool IsNoodleMap(IDifficultyBeatmap level)
         {
             // thanks kinsi
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "NoodleExtensions")) {
-                bool isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level)?
+                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level)?
                     .additionalDifficultyData?
                     ._requirements?.Any(x => x == "Noodle Extensions") == true;
                 return isIsNoodleMap;
@@ -35,9 +31,9 @@ namespace StreamPartyCommand.Models
         }
         public static bool IsChromaMap(IDifficultyBeatmap level)
         {
-            
+
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "Chroma")) {
-                bool isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level)?
+                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level)?
                     .additionalDifficultyData?
                     ._requirements?.Any(x => x == "Chroma") == true;
                 isIsNoodleMap = isIsNoodleMap || SongCore.Collections.RetrieveDifficultyData(level)?
@@ -47,13 +43,13 @@ namespace StreamPartyCommand.Models
             }
             else {
                 return false;
-            }   
+            }
         }
 
         public void Initialize()
         {
-            IsNoodle = IsNoodleMap(Currentmap);
-            IsChroma = IsChromaMap(Currentmap);
+            this.IsNoodle = IsNoodleMap(this.Currentmap);
+            this.IsChroma = IsChromaMap(this.Currentmap);
             Plugin.Log.Debug($"Noodle?:{this.IsNoodle}");
             Plugin.Log.Debug($"Chroma?:{this.IsChroma}");
         }
