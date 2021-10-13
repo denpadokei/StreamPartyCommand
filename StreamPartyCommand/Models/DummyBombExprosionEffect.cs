@@ -7,7 +7,7 @@ namespace StreamPartyCommand.Models
     {
         public virtual void Awake()
         {
-            this._emitParams = default(ParticleSystem.EmitParams);
+            this._emitParams = default;
             this._emitParams.startColor = Color.white;
             this._emitParams.applyShapeToPosition = true;
         }

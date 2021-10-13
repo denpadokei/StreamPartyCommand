@@ -23,44 +23,29 @@ namespace StreamPartyCommand.Models
             get => this._particle;
             private set => this._particle = value;
         }
-
-        public void SerchShader()
-        {
-            foreach (var shader in Resources.FindObjectsOfTypeAll<Shader>().OrderBy(x => x.name)) {
-                Plugin.Log.Debug($"{shader}, {shader.name}");
-            }
-        }
-
         private void Awake() => HMMainThreadDispatcher.instance.Enqueue(this.LoadParticle());
         public IEnumerator LoadParticle()
         {
-            Plugin.Log.Debug("1");
             this.IsInitialized = false;
             yield return new WaitWhile(() => Default == null);
-            Plugin.Log.Debug("2");
             if (this.Particle != null) {
                 Destroy(this.Particle);
             }
             if (!Directory.Exists(FontAssetPath)) {
                 Directory.CreateDirectory(FontAssetPath);
             }
-            Plugin.Log.Debug("3");
             AssetBundle bundle = null;
             foreach (var filename in Directory.EnumerateFiles(FontAssetPath, "*.particle", SearchOption.TopDirectoryOnly)) {
                 using (var fs = File.OpenRead(filename)) {
                     bundle = AssetBundle.LoadFromStream(fs);
                 }
                 if (bundle != null) {
-                    Plugin.Log.Debug("3.5");
                     break;
                 }
             }
-            Plugin.Log.Debug("4");
             if (bundle != null) {
-                Plugin.Log.Debug("5");
                 foreach (var bundleItem in bundle.GetAllAssetNames()) {
                     var asset = bundle.LoadAsset<GameObject>(Path.GetFileNameWithoutExtension(bundleItem));
-                    Plugin.Log.Debug($"{asset}");
                     if (asset != null) {
                         this.Particle = asset.GetComponent<ParticleSystem>();
                         var renderer = this.Particle.GetComponent<ParticleSystemRenderer>();
@@ -69,10 +54,7 @@ namespace StreamPartyCommand.Models
                         break;
                     }
                 }
-                Plugin.Log.Debug("6");
             }
-            Plugin.Log.Debug("7");
-            Plugin.Log.Debug($"{this.Particle}");
             this.IsInitialized = true;
         }
     }

@@ -55,14 +55,6 @@ namespace StreamPartyCommand
         /// </summary>
         private void Awake() => Plugin.Log?.Debug($"{this.name}: Awake()");
         /// <summary>
-        /// Only ever called once on the first frame the script is Enabled. Start is called after any other script's Awake() and before Update().
-        /// </summary>
-        private void Start()
-        {
-
-        }
-
-        /// <summary>
         /// Called every frame if the script is enabled.
         /// </summary>
         private void Update()

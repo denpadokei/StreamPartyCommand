@@ -187,7 +187,6 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Staics\CommandKey.cs" />
-    <Compile Include="Staics\Enums.cs" />
     <Compile Include="StreamPartyCommandController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ColorUtil.cs" />
