@@ -2,6 +2,7 @@
 using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
+using IPA.Loader;
 using SiraUtil.Zenject;
 using StreamPartyCommand.Installers;
 using StreamPartyCommand.Models;
@@ -43,7 +44,10 @@ namespace StreamPartyCommand
             Log.Debug("OnApplicationStart");
             FontAssetReader.TouchInstance();
             ParticleAssetLoader.TouchInstance();
-            //new GameObject("StreamPartyCommandController").AddComponent<StreamPartyCommandController>();
+            var twitchFX = PluginManager.GetPluginFromId("TwitchFX");
+            if (twitchFX != null) {
+                Logger.Debug("TwitchFX is Installing.");
+            }
         }
 
         [OnExit]
