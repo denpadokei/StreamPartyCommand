@@ -1,4 +1,5 @@
 ﻿using ChatCore.Interfaces;
+using IPA.Loader;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
@@ -16,9 +17,14 @@ namespace StreamPartyCommand.CommandControllers
 
         public string Key => CommandKey.LIGHT_COLOR;
 
+        public bool IsInstallTwitchFX { get; set; }
+
         public void Execute(IChatService service, IChatMessage message)
         {
             if (PluginConfig.Instance.IsPratformColorEnable != true) {
+                return;
+            }
+            if (this.IsInstallTwitchFX) {
                 return;
             }
             var prams = message.Message.Split(' ');
@@ -38,6 +44,7 @@ namespace StreamPartyCommand.CommandControllers
         [Inject]
         public void Constractor(ColorScheme scheme, BeatmapUtil util)
         {
+            this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
             GetNormalColorPatch.RightColor = scheme.environmentColor0;
             GetNormalColorPatch.LeftColor = scheme.environmentColor1;

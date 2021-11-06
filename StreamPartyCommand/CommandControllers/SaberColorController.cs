@@ -1,4 +1,5 @@
 ﻿using ChatCore.Interfaces;
+using IPA.Loader;
 using SiraUtil;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.Interfaces;
@@ -12,6 +13,7 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class SaberColorController : MonoBehaviour, ICommandable
     {
+        public bool IsInstallTwitchFX { get; set; }
         public string Key => CommandKey.SABER_COLOR;
         private void Start() => this.enable = !this._util.IsNoodle && !this._util.IsChroma;
         public void Execute(IChatService service, IChatMessage message)
@@ -20,6 +22,9 @@ namespace StreamPartyCommand.CommandControllers
                 return;
             }
             if (PluginConfig.Instance.IsSaberColorEnable != true) {
+                return;
+            }
+            if (this.IsInstallTwitchFX) {
                 return;
             }
             var prams = message.Message.Split(' ');
@@ -39,6 +44,7 @@ namespace StreamPartyCommand.CommandControllers
         [Inject]
         public void Constractor(ColorScheme scheme, SaberManager saberManager, BeatmapUtil util)
         {
+            this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
             this._saberManager = saberManager;
         }

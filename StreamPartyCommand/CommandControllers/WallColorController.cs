@@ -1,4 +1,5 @@
 ﻿using ChatCore.Interfaces;
+using IPA.Loader;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
@@ -12,12 +13,16 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class WallColorController : MonoBehaviour, ICommandable
     {
+        public bool IsInstallTwitchFX { get; set; }
         public string Key => CommandKey.WALL_COLOR;
 
         private void Start() => StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         public void Execute(IChatService service, IChatMessage message)
         {
             if (PluginConfig.Instance.IsWallColorEnable != true) {
+                return;
+            }
+            if (this.IsInstallTwitchFX) {
                 return;
             }
             var messageArray = message.Message.Split(' ');
@@ -32,6 +37,7 @@ namespace StreamPartyCommand.CommandControllers
         [Inject]
         public void Constractor(ColorManager manager, BeatmapUtil util)
         {
+            this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
             StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
