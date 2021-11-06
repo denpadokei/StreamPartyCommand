@@ -1,5 +1,6 @@
 # StreamPartyCommand
-ボムとかがどっかーんってするやつ
+ボムとかがどっかーんってするやつ  
+ver.1.1.0以降であれば、[TwitchFX](https://github.com/rakso20000/TwitchFX)と共存できます。
 
 # 依存MOD  
 - SiraUtil
