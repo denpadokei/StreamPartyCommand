@@ -124,6 +124,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
       <Private>False</Private>
@@ -197,10 +202,10 @@
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\neontubes2 sdf.assets">
+    <None Include="Assets\neontubes2 sdf.assets">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <None Include="Assets\particle system.particle">
+    </None>
+    <None Include="Assets\exprosion.particle">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />

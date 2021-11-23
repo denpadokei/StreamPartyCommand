@@ -9,25 +9,26 @@ namespace StreamPartyCommand.Models
     public class ParticleAssetLoader : PersistentSingleton<ParticleAssetLoader>
     {
         private static readonly string FontAssetPath = Path.Combine(Environment.CurrentDirectory, "UserData", "SPCParticleAssets");
-
-        private static Material _default;
-
-        private static Material Default => _default ?? (_default = Resources.FindObjectsOfTypeAll<Material>().FirstOrDefault(x => x.name == "FireworkExplosion"));
-
         public bool IsInitialized { get; private set; } = false;
 
         private ParticleSystem _particle = null;
-
         public ParticleSystem Particle
         {
             get => this._particle;
             private set => this._particle = value;
         }
-        private void Awake() => HMMainThreadDispatcher.instance.Enqueue(this.LoadParticle());
-        public IEnumerator LoadParticle()
+        private void Awake() => this.LoadParticle();
+        protected override void OnDestroy()
+        {
+            if (this.Particle != null) {
+                Destroy(this.Particle);
+            }
+        }
+
+        public void LoadParticle()
         {
             this.IsInitialized = false;
-            yield return new WaitWhile(() => Default == null);
+            
             if (this.Particle != null) {
                 Destroy(this.Particle);
             }
@@ -48,8 +49,7 @@ namespace StreamPartyCommand.Models
                     var asset = bundle.LoadAsset<GameObject>(Path.GetFileNameWithoutExtension(bundleItem));
                     if (asset != null) {
                         this.Particle = asset.GetComponent<ParticleSystem>();
-                        var renderer = this.Particle.GetComponent<ParticleSystemRenderer>();
-                        renderer.material = Instantiate(Default);
+                        this.Particle.Stop();
                         bundle.Unload(false);
                         break;
                     }
