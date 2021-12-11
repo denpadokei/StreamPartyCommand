@@ -3,13 +3,13 @@
   "id": "StreamPartyCommand",
   "name": "StreamPartyCommand",
   "author": "denpadokei",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "",
-  "gameVersion": "1.17.1",
+  "gameVersion": "1.19.0",
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "ChatCore": "^2.1.2",
-    "SiraUtil": "^2.5.8"
+    "SiraUtil": "^3.0.0"
   },
   "features": []
 }

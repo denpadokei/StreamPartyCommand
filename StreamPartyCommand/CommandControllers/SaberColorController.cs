@@ -1,6 +1,7 @@
 ﻿using ChatCore.Interfaces;
 using IPA.Loader;
 using SiraUtil;
+using SiraUtil.Sabers;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
@@ -15,7 +16,12 @@ namespace StreamPartyCommand.CommandControllers
     {
         public bool IsInstallTwitchFX { get; set; }
         public string Key => CommandKey.SABER_COLOR;
-        private void Start() => this.enable = !this._util.IsNoodle && !this._util.IsChroma;
+        private SaberModelManager _saberModelManager;
+
+        private void Start()
+        {
+            this.enable = !this._util.IsNoodle && !this._util.IsChroma;
+        }
         public void Execute(IChatService service, IChatMessage message)
         {
             if (!this.enable) {
@@ -34,19 +40,20 @@ namespace StreamPartyCommand.CommandControllers
             var leftColor = prams[1];
             var rightColor = prams[2];
             if (ColorUtil.Colors.TryGetValue(leftColor, out var color0)) {
-                this._saberManager.leftSaber.ChangeColor(color0);
+                this._saberModelManager.SetColor(this._saberManager.leftSaber, color0);
             }
             if (ColorUtil.Colors.TryGetValue(rightColor, out var color1)) {
-                this._saberManager.rightSaber.ChangeColor(color1);
+                this._saberModelManager.SetColor(this._saberManager.rightSaber, color1);
             }
         }
         private BeatmapUtil _util;
         [Inject]
-        public void Constractor(ColorScheme scheme, SaberManager saberManager, BeatmapUtil util)
+        public void Constractor(SaberManager saberManager, BeatmapUtil util, SaberModelManager modelManager)
         {
             this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
             this._saberManager = saberManager;
+            this._saberModelManager = modelManager;
         }
         private bool enable;
         private SaberManager _saberManager;

@@ -33,9 +33,9 @@ namespace StreamPartyCommand
             Configuration.PluginConfig.Instance = conf.Generated<Configuration.PluginConfig>();
             Log.Debug("Config loaded");
             this.harmony = new Harmony(HARMONY_ID);
-            zenjector.OnApp<SPCAppInstaller>();
-            zenjector.OnGame<SPCGameInstaller>().OnlyForStandard();
-            zenjector.OnMenu<SPCMenuInstaller>();
+            zenjector.Install<SPCAppInstaller>(Location.App);
+            zenjector.Install<SPCGameInstaller>(Location.Player);
+            zenjector.Install<SPCMenuInstaller>(Location.Menu);
         }
 
         [OnStart]
