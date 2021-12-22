@@ -57,6 +57,6 @@ namespace StreamPartyCommand
         public void OnEnable() => this.harmony.PatchAll(Assembly.GetExecutingAssembly());
 
         [OnDisable]
-        public void OnDisable() => this.harmony.UnpatchAll(HARMONY_ID);
+        public void OnDisable() => this.harmony.UnpatchSelf();
     }
 }
