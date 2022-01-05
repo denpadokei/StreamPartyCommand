@@ -1,14 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 namespace StreamPartyCommand.Models
 {
     public class DummyBombExprosionEffect : MonoBehaviour
     {
-        public virtual void Awake()
+        public void Awake()
         {
-            this._emitParams = default;
-            this._emitParams.applyShapeToPosition = true;
             if (this._particleSystem != null) {
                 Destroy(this._particleSystem);
             }
@@ -16,25 +15,24 @@ namespace StreamPartyCommand.Models
             this._particleSystem.transform.SetParent(this.transform, false);
             this._particleSystem.Stop();
         }
-
-        public virtual void OnDestroy()
+        public void OnDestroy()
         {
             if (this._particleSystem != null) {
                 Destroy(this._particleSystem);
+                this._particleSystem = null;
             }
         }
 
         public virtual void SpawnExplosion(Vector3 pos)
         {
-            this._emitParams.position = pos;
+            this.transform.position = pos;
             try {
-                this._particleSystem.Emit(this._emitParams, 50000);
+                this._particleSystem.Emit(50000);
             }
             catch (Exception e) {
                 Plugin.Log.Error(e);
             }
         }
-        protected ParticleSystem.EmitParams _emitParams;
         private ParticleSystem _particleSystem;
     }
 }

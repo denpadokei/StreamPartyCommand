@@ -12,7 +12,10 @@ namespace StreamPartyCommand.Installers
         public override void InstallBindings()
         {
             this.Container.BindInterfacesAndSelfTo<StreamPartyCommandController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
-            this.Container.BindInterfacesAndSelfTo<DummyBombExprosionEffect>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+            var memoryPool = new ObjectMemoryPool<DummyBombExprosionEffect>(4);
+            this.Container.BindInterfacesAndSelfTo<ObjectMemoryPool<DummyBombExprosionEffect>>().FromInstance(memoryPool).AsCached();
+            var namePool = new ObjectMemoryPool<FlyingBombNameEffect>(8);
+            this.Container.BindInterfacesAndSelfTo<ObjectMemoryPool<FlyingBombNameEffect>>().FromInstance(namePool).AsCached();
             this.Container.BindInterfacesAndSelfTo<BombEffectSpowner>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<CustomNoteUtil>().AsSingle().NonLazy();

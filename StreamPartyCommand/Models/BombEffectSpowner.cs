@@ -47,7 +47,9 @@ namespace StreamPartyCommand.Models
             if (string.IsNullOrEmpty(dummyBomb.Text)) {
                 return;
             }
-            this._dummyBombExprosionEffect.SpawnExplosion(noteCutInfo.cutPoint);
+            var bombEffect = this._dummyBombExprosionEffectPool.Alloc();
+            bombEffect.SpawnExplosion(noteCutInfo.cutPoint);
+            this._dummyBombExprosionEffectPool.Free(bombEffect);
             var effect = this._flyingBombNameEffectPool.Alloc();
             effect.transform.localPosition = noteCutInfo.cutPoint;
             effect.didFinishEvent.Add(this);
@@ -75,17 +77,17 @@ namespace StreamPartyCommand.Models
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // メンバ変数
         private BeatmapObjectManager _beatmapObjectManager;
-        private DummyBombExprosionEffect _dummyBombExprosionEffect;
+        private ObjectMemoryPool<DummyBombExprosionEffect> _dummyBombExprosionEffectPool;
         private ObjectMemoryPool<FlyingBombNameEffect> _flyingBombNameEffectPool;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄
         [Inject]
-        public void Constractor(BeatmapObjectManager manager, DummyBombExprosionEffect effect)
+        public void Constractor(BeatmapObjectManager manager, ObjectMemoryPool<FlyingBombNameEffect> nameEffect, ObjectMemoryPool<DummyBombExprosionEffect> bombEffect)
         {
             this._beatmapObjectManager = manager;
-            this._dummyBombExprosionEffect = effect;
-            this._flyingBombNameEffectPool = new ObjectMemoryPool<FlyingBombNameEffect>(8);
+            this._dummyBombExprosionEffectPool = bombEffect;
+            this._flyingBombNameEffectPool = nameEffect;
         }
         #endregion
     }

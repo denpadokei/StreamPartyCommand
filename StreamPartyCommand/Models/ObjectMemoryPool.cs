@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace StreamPartyCommand.Models
 {
-    public class ObjectMemoryPool<T> where T : MonoBehaviour
+    public class ObjectMemoryPool<T> : IDisposable where T : MonoBehaviour
     {
         private readonly ConcurrentStack<T> _freeObjects;
+        private readonly LazyCopyHashSet<T> _activeObjects = new LazyCopyHashSet<T>(256);
         private readonly Action<T> _firstAlloc;
         private readonly Action<T> _onAlloc;
         private readonly Action<T> _onFree;
@@ -53,6 +54,7 @@ namespace StreamPartyCommand.Models
                 Logger.Debug($"InternalAlloc() in Alloc! : {obj}");
             }
             this._onAlloc?.Invoke(obj);
+            this._activeObjects.Add(obj);
             return obj;
         }
 
@@ -67,6 +69,7 @@ namespace StreamPartyCommand.Models
                 return;
             }
             this._onFree?.Invoke(obj);
+            this._activeObjects.Remove(obj);
             this._freeObjects.Push(obj);
         }
 
@@ -78,6 +81,10 @@ namespace StreamPartyCommand.Models
                         UnityEngine.Object.Destroy(obj.gameObject);
                     }
                     this._freeObjects.Clear();
+                    foreach (var activeObj in this._activeObjects.items) {
+                        UnityEngine.Object.Destroy(activeObj.gameObject);
+                    }
+                    this._activeObjects.items.Clear();
                 }
                 this.disposedValue = true;
             }
