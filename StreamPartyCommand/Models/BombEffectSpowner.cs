@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using StreamPartyCommand.Configuration;
+using UnityEngine;
 using Zenject;
 
 namespace StreamPartyCommand.Models
@@ -19,8 +20,10 @@ namespace StreamPartyCommand.Models
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // パブリックメソッド
-        public void Start()
+        public void Awake()
         {
+            this._duaring = PluginConfig.Instance.TextViewSec;
+            this._missDuaring = PluginConfig.Instance.MissTextViewSec;
             this._beatmapObjectManager.noteWasCutEvent += this.OnNoteWasCutEvent;
             this._beatmapObjectManager.noteWasMissedEvent += this.OnNoteWasMissedEvent;
         }
@@ -29,7 +32,6 @@ namespace StreamPartyCommand.Models
             this._beatmapObjectManager.noteWasCutEvent -= this.OnNoteWasCutEvent;
             this._beatmapObjectManager.noteWasMissedEvent -= this.OnNoteWasMissedEvent;
         }
-
         public void HandleFlyingObjectEffectDidFinish(FlyingObjectEffect flyingObjectEffect)
         {
             flyingObjectEffect.didFinishEvent.Remove(this);
@@ -54,7 +56,7 @@ namespace StreamPartyCommand.Models
             effect.transform.localPosition = noteCutInfo.cutPoint;
             effect.didFinishEvent.Add(this);
             var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
-            effect.InitAndPresent(dummyBomb.Text, 1f, targetpos, noteController.worldRotation, Color.white, 10, false);
+            effect.InitAndPresent(dummyBomb.Text, this._duaring, targetpos, noteController.worldRotation, Color.white, 10, false);
             dummyBomb.Text = "";
         }
         private void OnNoteWasMissedEvent(NoteController noteController)
@@ -70,7 +72,7 @@ namespace StreamPartyCommand.Models
             effect.transform.localPosition = Vector3.zero;
             effect.didFinishEvent.Add(this);
             var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
-            effect.InitAndPresent(dummyBomb.Text, 0.7f, targetpos, noteController.worldRotation, Color.red, 10, false);
+            effect.InitAndPresent(dummyBomb.Text, this._missDuaring, targetpos, noteController.worldRotation, Color.red, 10, false);
             dummyBomb.Text = "";
         }
         #endregion
@@ -79,6 +81,8 @@ namespace StreamPartyCommand.Models
         private BeatmapObjectManager _beatmapObjectManager;
         private ObjectMemoryPool<DummyBombExprosionEffect> _dummyBombExprosionEffectPool;
         private ObjectMemoryPool<FlyingBombNameEffect> _flyingBombNameEffectPool;
+        private float _duaring = 1f;
+        private float _missDuaring = 0.7f;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄

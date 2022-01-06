@@ -1,5 +1,4 @@
 ﻿using IPA.Utilities;
-using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Utilities;
 using System.Collections.Concurrent;
 using UnityEngine;
@@ -53,7 +52,7 @@ namespace StreamPartyCommand.Models
             }
             // ここで置き換えるノーツの設定をする（ボムにするとかなんとか）
             // ふぁっきんかすたむのーつ
-            if (CustomNoteUtil.IsInstallCustomNote && 1 <= CustomNoteUtil.SelectedNoteIndex) {
+            if (CustomNoteUtil.IsInstallCustomNote && 1 <= this._selectedNoteIndex) {
                 if (Senders.TryDequeue(out var sender)) {
                     this.Text = sender;
                     if (this._bombMesh == null && BombMeshGetter.BombMesh != null) {
@@ -110,6 +109,7 @@ namespace StreamPartyCommand.Models
         private MeshRenderer _bombMesh;
         private MeshRenderer _noteMesh;
         private ColorManager _colorManager;
+        private readonly int _selectedNoteIndex = CustomNoteUtil.SelectedNoteIndex;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // 構築・破棄

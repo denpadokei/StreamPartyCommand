@@ -9,6 +9,8 @@ namespace StreamPartyCommand.Configuration
         public static PluginConfig Instance { get; set; }
 
         public virtual bool IsBombEnable { get; set; } = true;
+        public virtual float TextViewSec { get; set; } = 1f;
+        public virtual float MissTextViewSec { get; set; } = 0.7f;
         public virtual bool IsSaberColorEnable { get; set; } = true;
         public virtual bool IsWallColorEnable { get; set; } = true;
         public virtual bool IsNoteColorEnable { get; set; } = true;
