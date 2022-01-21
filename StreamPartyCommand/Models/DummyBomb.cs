@@ -32,6 +32,7 @@ namespace StreamPartyCommand.Models
                 this._colorManager = visuals.GetField<ColorManager, ColorNoteVisuals>("_colorManager");
             }
             this._noteMesh = this.GetComponentInChildren<MeshRenderer>();
+            this._selectedNoteIndex = CustomNoteUtil.SelectedNoteIndex;
             this._isCustomNote = CustomNoteUtil.IsInstallCustomNote && 1 <= this._selectedNoteIndex;
         }
         protected void OnDestroy()
@@ -80,7 +81,7 @@ namespace StreamPartyCommand.Models
         private MeshRenderer _bombMesh;
         private MeshRenderer _noteMesh;
         private ColorManager _colorManager;
-        private readonly int _selectedNoteIndex = CustomNoteUtil.SelectedNoteIndex;
+        private int _selectedNoteIndex;
         private bool _isCustomNote;
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
