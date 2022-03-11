@@ -59,7 +59,6 @@ namespace StreamPartyCommand.Models
                 this._bombMesh = Instantiate(BombMeshGetter.BombMesh);
                 this._bombMesh.gameObject.transform.SetParent(this._noteCube, false);
             }
-
         }
         public void HandleNoteControllerNoteDidStartJump(NoteController noteController)
         {
