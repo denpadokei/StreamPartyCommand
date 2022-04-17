@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -34,6 +30,17 @@ namespace StreamPartyCommand.Models
             try {
                 var bomb = Resources.FindObjectsOfTypeAll<MonoBehaviour>().FirstOrDefault(x => x.name == "BombNote").gameObject;
                 BombGO = GameObject.Instantiate(bomb);
+                foreach (var component in BombGO.GetComponentsInChildren<Component>(true)) {
+                    if (component is BombNoteController bombNoteController) {
+                        GameObject.Destroy(bombNoteController);
+                    }
+                    if (component is SphereCollider sphereCollider) {
+                        GameObject.Destroy(sphereCollider);
+                    }
+                    if (component is SphereCuttableBySaber sphereCuttableBySaber) {
+                        GameObject.Destroy(sphereCuttableBySaber);
+                    }
+                }
                 BombGO.SetActive(false);
             }
             catch (Exception e) {
@@ -43,7 +50,7 @@ namespace StreamPartyCommand.Models
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue) {
+            if (!this.disposedValue) {
                 if (disposing) {
                     if (BombMesh != null) {
                         GameObject.Destroy(BombMesh);
@@ -52,13 +59,13 @@ namespace StreamPartyCommand.Models
                         GameObject.Destroy(BombGO);
                     }
                 }
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
     }

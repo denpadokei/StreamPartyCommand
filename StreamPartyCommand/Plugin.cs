@@ -51,12 +51,21 @@ namespace StreamPartyCommand
         }
 
         [OnExit]
-        public void OnApplicationQuit() => Log.Debug("OnApplicationQuit");
+        public void OnApplicationQuit()
+        {
+            Log.Debug("OnApplicationQuit");
+        }
 
         [OnEnable]
-        public void OnEnable() => this.harmony.PatchAll(Assembly.GetExecutingAssembly());
+        public void OnEnable()
+        {
+            this.harmony.PatchAll(Assembly.GetExecutingAssembly());
+        }
 
         [OnDisable]
-        public void OnDisable() => this.harmony.UnpatchSelf();
+        public void OnDisable()
+        {
+            this.harmony.UnpatchSelf();
+        }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace StreamPartyCommand.Models
@@ -17,7 +15,11 @@ namespace StreamPartyCommand.Models
             get => this._particle;
             private set => this._particle = value;
         }
-        private void Awake() => this.LoadParticle();
+        private void Awake()
+        {
+            this.LoadParticle();
+        }
+
         protected override void OnDestroy()
         {
             if (this.Particle != null) {
@@ -28,7 +30,7 @@ namespace StreamPartyCommand.Models
         public void LoadParticle()
         {
             this.IsInitialized = false;
-            
+
             if (this.Particle != null) {
                 Destroy(this.Particle);
             }

@@ -7,25 +7,22 @@ namespace StreamPartyCommand.Utilities
 {
     public class CustomNoteUtil
     {
-        public static bool IsInstallCustomNote { get; private set; }
-        private static object _loader;
-        public static int SelectedNoteIndex => _loader == null ? -1 : (int)_loader.GetType().GetProperty("SelectedNote").GetValue(_loader);
+        public bool IsInstallCustomNote { get; private set; }
+        private readonly object _loader;
+        public int SelectedNoteIndex => this._loader == null ? -1 : (int)this._loader.GetType().GetProperty("SelectedNote").GetValue(this._loader);
+        public bool Enabled => this._loader != null && (bool)this._loader.GetType().GetProperty("Enabled").GetValue(this._loader);
 
         [Inject]
-        public void Init(DiContainer container)
+        public CustomNoteUtil(DiContainer container)
         {
+            this.IsInstallCustomNote = PluginManager.GetPluginFromId("Custom Notes") != null;
             var loaderType = Type.GetType("CustomNotes.Managers.NoteAssetLoader, CustomNotes");
             if (loaderType == null) {
-                _loader = null;
+                this._loader = null;
             }
             else {
-                _loader = container.TryResolve(loaderType);
+                this._loader = container.TryResolve(loaderType);
             }
-        }
-
-        static CustomNoteUtil()
-        {
-            IsInstallCustomNote = PluginManager.GetPluginFromId("Custom Notes") != null;
         }
 
         public static bool TryGetColorNoteVisuals(GameObject gameObject, out ColorNoteVisuals colorNoteVisuals)

@@ -53,7 +53,11 @@ namespace StreamPartyCommand
         /// <summary>
         /// Only ever called once, mainly used to initialize variables.
         /// </summary>
-        private void Awake() => Plugin.Log?.Debug($"{this.name}: Awake()");
+        private void Awake()
+        {
+            Plugin.Log?.Debug($"{this.name}: Awake()");
+        }
+
         /// <summary>
         /// Called every frame if the script is enabled.
         /// </summary>
@@ -73,7 +77,10 @@ namespace StreamPartyCommand
         /// <summary>
         /// Called when the script is being destroyed.
         /// </summary>
-        private void OnDestroy() => Plugin.Log?.Debug($"{this.name}: OnDestroy()");
+        private void OnDestroy()
+        {
+            Plugin.Log?.Debug($"{this.name}: OnDestroy()");
+        }
         #endregion
     }
 }

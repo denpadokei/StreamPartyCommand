@@ -134,6 +134,11 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -165,7 +170,6 @@
     <Compile Include="Events\JoinChannelEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="HarmonyPathches\ColorManagerPatch.cs" />
-    <Compile Include="HarmonyPathches\GameNoteControllerPatch.cs" />
     <Compile Include="HarmonyPathches\GetNormalColorPatch.cs" />
     <Compile Include="HarmonyPathches\StretchableObstaclePatch.cs" />
     <Compile Include="Installers\SPCAppInstaller.cs" />
@@ -187,7 +191,6 @@
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
-    <Compile Include="Models\ObjectMemoryPool.cs" />
     <Compile Include="Models\ParticleAssetLoader.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -209,15 +212,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
-    <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="StreamPartyCommand.csproj.user" Condition="Exists('StreamPartyCommand.csproj.user')" />
     <EmbeddedResource Include="Views\SettingViewController.bsml">
       <DependentUpon>SettingViewController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BeatSaberModdingTools.Tasks">
-      <Version>1.2.3</Version>
+    <PackageReference Include="BeatSaberModdingTools.Tasks" Version="2.0.0-beta4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

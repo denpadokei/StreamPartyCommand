@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace StreamPartyCommand.Models
 {
@@ -9,7 +10,7 @@ namespace StreamPartyCommand.Models
         private void Awake()
         {
             try {
-                this._text = this.gameObject.AddComponent<TextMeshPro>();
+                this._text = this.gameObject.GetComponent<TextMeshPro>();
                 if (FontAssetReader.instance.MainFont != null) {
                     this._text.font = FontAssetReader.instance.MainFont;
                 }
@@ -29,10 +30,17 @@ namespace StreamPartyCommand.Models
             base.InitAndPresent(duration, targetPos, rotation, shake);
         }
 
-        protected override void ManualUpdate(float t) => this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
+        protected override void ManualUpdate(float t)
+        {
+            this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
+        }
 
         private TextMeshPro _text;
         private Color _color;
         private readonly AnimationCurve _fadeAnimationCurve = AnimationCurve.Linear(0f, 1f, 1f, 0f);
+
+        public class Pool : MonoMemoryPool<FlyingBombNameEffect>
+        {
+        }
     }
 }
