@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -54,7 +50,7 @@ namespace StreamPartyCommand.Models
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue) {
+            if (!this.disposedValue) {
                 if (disposing) {
                     if (BombMesh != null) {
                         GameObject.Destroy(BombMesh);
@@ -63,13 +59,13 @@ namespace StreamPartyCommand.Models
                         GameObject.Destroy(BombGO);
                     }
                 }
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            this.Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
     }

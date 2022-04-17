@@ -1,6 +1,5 @@
 ﻿using ChatCore.Interfaces;
 using IPA.Loader;
-using SiraUtil;
 using SiraUtil.Sabers;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.Interfaces;

@@ -13,7 +13,10 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class LightColorController : MonoBehaviour, ICommandable
     {
-        private void Start() => GetNormalColorPatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        private void Start()
+        {
+            GetNormalColorPatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        }
 
         public string Key => CommandKey.LIGHT_COLOR;
 

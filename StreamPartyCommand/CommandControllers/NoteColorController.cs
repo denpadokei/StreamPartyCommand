@@ -13,7 +13,11 @@ namespace StreamPartyCommand.CommandControllers
 {
     public class NoteColorController : MonoBehaviour, ICommandable
     {
-        private void Start() => ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        private void Start()
+        {
+            ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        }
+
         public string Key => CommandKey.NOTE_COLOR;
         public bool IsInstallTwitchFX { get; set; }
 

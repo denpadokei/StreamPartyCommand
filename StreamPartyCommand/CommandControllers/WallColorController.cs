@@ -16,7 +16,11 @@ namespace StreamPartyCommand.CommandControllers
         public bool IsInstallTwitchFX { get; set; }
         public string Key => CommandKey.WALL_COLOR;
 
-        private void Start() => StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        private void Start()
+        {
+            StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+        }
+
         public void Execute(IChatService service, IChatMessage message)
         {
             if (PluginConfig.Instance.IsWallColorEnable != true) {

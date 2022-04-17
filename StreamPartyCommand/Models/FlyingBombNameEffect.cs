@@ -30,7 +30,10 @@ namespace StreamPartyCommand.Models
             base.InitAndPresent(duration, targetPos, rotation, shake);
         }
 
-        protected override void ManualUpdate(float t) => this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
+        protected override void ManualUpdate(float t)
+        {
+            this._text.color = this._color.ColorWithAlpha(this._fadeAnimationCurve.Evaluate(t));
+        }
 
         private TextMeshPro _text;
         private Color _color;

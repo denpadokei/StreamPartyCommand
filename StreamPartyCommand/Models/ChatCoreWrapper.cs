@@ -36,10 +36,25 @@ namespace StreamPartyCommand.Models
             this.OnMessageReceived += this.ChatCoreWrapper_OnMessageReceived;
         }
 
-        private void ChatCoreWrapper_OnMessageReceived(object sender, ReceiveMessageEventArgs e) => this.RecieveChatMessage.Enqueue(e);
-        private void MultiplexerInstance_OnTextMessageReceived(IChatService arg1, IChatMessage arg2) => this.OnMessageReceived?.Invoke(this, new ReceiveMessageEventArgs(arg1, arg2));
-        private void MultiplexerInstance_OnJoinChannel(IChatService arg1, IChatChannel arg2) => this.OnJoinChannel?.Invoke(this, new JoinChannelEventArgs(arg1, arg2));
-        private void MultiplexerInstance_OnLogin(IChatService obj) => this.OnLogined?.Invoke(this, new LoginEventArgs(obj));
+        private void ChatCoreWrapper_OnMessageReceived(object sender, ReceiveMessageEventArgs e)
+        {
+            this.RecieveChatMessage.Enqueue(e);
+        }
+
+        private void MultiplexerInstance_OnTextMessageReceived(IChatService arg1, IChatMessage arg2)
+        {
+            this.OnMessageReceived?.Invoke(this, new ReceiveMessageEventArgs(arg1, arg2));
+        }
+
+        private void MultiplexerInstance_OnJoinChannel(IChatService arg1, IChatChannel arg2)
+        {
+            this.OnJoinChannel?.Invoke(this, new JoinChannelEventArgs(arg1, arg2));
+        }
+
+        private void MultiplexerInstance_OnLogin(IChatService obj)
+        {
+            this.OnLogined?.Invoke(this, new LoginEventArgs(obj));
+        }
 
         protected virtual void Dispose(bool disposing)
         {

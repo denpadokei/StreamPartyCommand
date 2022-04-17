@@ -33,7 +33,11 @@ namespace StreamPartyCommand.Models
             }
             private set => this._mainFont = value;
         }
-        private void Awake() => HMMainThreadDispatcher.instance.Enqueue(this.CreateChatFont());
+        private void Awake()
+        {
+            HMMainThreadDispatcher.instance.Enqueue(this.CreateChatFont());
+        }
+
         public IEnumerator CreateChatFont()
         {
             this.IsInitialized = false;

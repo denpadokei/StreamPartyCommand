@@ -8,20 +8,20 @@ namespace StreamPartyCommand.Utilities
     public class CustomNoteUtil
     {
         public bool IsInstallCustomNote { get; private set; }
-        private object _loader;
-        public int SelectedNoteIndex => _loader == null ? -1 : (int)_loader.GetType().GetProperty("SelectedNote").GetValue(_loader);
-        public bool Enabled => _loader != null && (bool)_loader.GetType().GetProperty("Enabled").GetValue(_loader);
+        private readonly object _loader;
+        public int SelectedNoteIndex => this._loader == null ? -1 : (int)this._loader.GetType().GetProperty("SelectedNote").GetValue(this._loader);
+        public bool Enabled => this._loader != null && (bool)this._loader.GetType().GetProperty("Enabled").GetValue(this._loader);
 
         [Inject]
         public CustomNoteUtil(DiContainer container)
         {
-            IsInstallCustomNote = PluginManager.GetPluginFromId("Custom Notes") != null;
+            this.IsInstallCustomNote = PluginManager.GetPluginFromId("Custom Notes") != null;
             var loaderType = Type.GetType("CustomNotes.Managers.NoteAssetLoader, CustomNotes");
             if (loaderType == null) {
-                _loader = null;
+                this._loader = null;
             }
             else {
-                _loader = container.TryResolve(loaderType);
+                this._loader = container.TryResolve(loaderType);
             }
         }
 
