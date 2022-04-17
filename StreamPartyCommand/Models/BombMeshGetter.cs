@@ -34,6 +34,17 @@ namespace StreamPartyCommand.Models
             try {
                 var bomb = Resources.FindObjectsOfTypeAll<MonoBehaviour>().FirstOrDefault(x => x.name == "BombNote").gameObject;
                 BombGO = GameObject.Instantiate(bomb);
+                foreach (var component in BombGO.GetComponentsInChildren<Component>(true)) {
+                    if (component is BombNoteController bombNoteController) {
+                        GameObject.Destroy(bombNoteController);
+                    }
+                    if (component is SphereCollider sphereCollider) {
+                        GameObject.Destroy(sphereCollider);
+                    }
+                    if (component is SphereCuttableBySaber sphereCuttableBySaber) {
+                        GameObject.Destroy(sphereCuttableBySaber);
+                    }
+                }
                 BombGO.SetActive(false);
             }
             catch (Exception e) {
