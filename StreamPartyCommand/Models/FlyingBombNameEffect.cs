@@ -11,6 +11,9 @@ namespace StreamPartyCommand.Models
         {
             try {
                 this._text = this.gameObject.GetComponent<TextMeshPro>();
+                if (this._text == null) {
+                    this._text = this.gameObject.AddComponent<TextMeshPro>();
+                }
                 if (FontAssetReader.instance.MainFont != null) {
                     this._text.font = FontAssetReader.instance.MainFont;
                 }
