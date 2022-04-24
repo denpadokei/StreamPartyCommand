@@ -4,8 +4,8 @@ using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
-using StreamPartyCommand.Utilities;
 using StreamPartyCommand.Staics;
+using StreamPartyCommand.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -34,34 +34,32 @@ namespace StreamPartyCommand.CommandControllers
                 return;
             }
 
-            if (_rainbowUtil.IsRainbow(messageArray[1]))
-            {
-                rainbow = true;
+            if (ColorUtil.IsRainbow(messageArray[1])) {
+                this._rainbow = true;
             }
             if (ColorUtil.Colors.TryGetValue(messageArray[1], out var color)) {
                 StretchableObstaclePatch.WallColor = color;
-                rainbow = false;
+                this._rainbow = false;
             }
         }
 
         private void Update()
         {
-            if (rainbow)
-            {
-                _rainbowUtil.SetWallRainbowColor(_rainbowUtil.WallRainbowColor());
+            if (this._rainbow) {
+                this._rainbowUtil.SetWallRainbowColor(this._rainbowUtil.WallRainbowColor());
             }
         }
 
         private BeatmapUtil _util;
         private RainbowUtil _rainbowUtil;
-        private bool rainbow = false;
+        private bool _rainbow = false;
         [Inject]
         public void Constractor(ColorManager manager, BeatmapUtil util, RainbowUtil rainbowUtil)
         {
             this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
             this._rainbowUtil = rainbowUtil;
-            this.rainbow = false;
+            this._rainbow = false;
             StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
     }

@@ -6,8 +6,6 @@ using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
 using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
@@ -18,10 +16,21 @@ namespace StreamPartyCommand.CommandControllers
         private void Start()
         {
             ColorManagerColorForTypePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
+            this._rainbow = new Color[s_colorCount];
+            var tmp = 1f / s_colorCount;
+            for (var i = 0; i < s_colorCount; i++) {
+                var hue = tmp * i;
+                this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
+            }
         }
 
         public string Key => CommandKey.NOTE_COLOR;
         public bool IsInstallTwitchFX { get; set; }
+        public Color[] Colors => this._rainbow;
+        public bool RainbowLeft { get; private set; }
+        public bool RainbowRight { get; private set; }
+        public int LeftColorIndex { get; private set; }
+        public int RightColorIndex { get; private set; }
 
         public void Execute(IChatService service, IChatMessage message)
         {
@@ -38,56 +47,41 @@ namespace StreamPartyCommand.CommandControllers
             var leftColor = prams[1];
             var rightColor = prams[2];
 
-            if (_rainbowUtil.IsRainbow(leftColor))
-            {
-                leftRainbow = true;
+            if (ColorUtil.IsRainbow(leftColor)) {
+                this.RainbowLeft = true;
             }
-            if (_rainbowUtil.IsRainbow(rightColor))
-            {
-                rightRainbow = true;
+            if (ColorUtil.IsRainbow(rightColor)) {
+                this.RainbowRight = true;
             }
-            
-            if (ColorUtil.Colors.TryGetValue(leftColor, out var color0))
-            {
+
+            if (ColorUtil.Colors.TryGetValue(leftColor, out var color0)) {
                 ColorManagerColorForTypePatch.LeftColor = color0;
-                leftRainbow = false;
+                this.RainbowLeft = false;
             }
-            
-            if (ColorUtil.Colors.TryGetValue(rightColor, out var color1))
-            {
+
+            if (ColorUtil.Colors.TryGetValue(rightColor, out var color1)) {
                 ColorManagerColorForTypePatch.RightColor = color1;
-                rightRainbow = false;
+                this.RainbowRight = false;
             }
         }
 
-        private void Update()
+        public void FixedUpdate()
         {
-            if (leftRainbow || rightRainbow)
-            {
-                _rainbowUtil.SetNoteColorRainbow(
-                    leftRainbow ? _rainbowUtil.LeftRainbowColor() : ColorManagerColorForTypePatch.LeftColor,
-                    rightRainbow ? _rainbowUtil.RightRainbowColor() : ColorManagerColorForTypePatch.RightColor
-                );
-            }
+            this.LeftColorIndex = Time.frameCount % s_colorCount;
+            this.RightColorIndex = (Time.frameCount + (s_colorCount / 2)) % s_colorCount;
         }
 
         private BeatmapUtil _util;
-        private RainbowUtil _rainbowUtil;
-        private bool leftRainbow = false;
-        private bool rightRainbow = false;
+        private Color[] _rainbow;
+        public const int s_colorCount = 256;
 
         [Inject]
-        public void Constractor(ColorScheme scheme, BeatmapUtil util, RainbowUtil rainbowUtil)
+        public void Constractor(ColorScheme scheme, BeatmapUtil util)
         {
             this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
-            this._rainbowUtil = rainbowUtil;
-            this.leftRainbow = false;
-            this.rightRainbow = false;
             ColorManagerColorForTypePatch.LeftColor = scheme.saberAColor;
             ColorManagerColorForTypePatch.RightColor = scheme.saberBColor;
         }
-
-        
     }
 }

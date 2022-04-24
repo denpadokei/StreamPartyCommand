@@ -25,12 +25,27 @@ namespace StreamPartyCommand.Installers
             this.Container.BindInterfacesAndSelfTo<SaberColorController>().FromNewComponentOnNewGameObject().AsSingle();
 
             this.Container.RegisterRedecorator(new BasicNoteRegistration(this.RedecoreteNoteController));
+            this.Container.RegisterRedecorator(new BurstSliderHeadNoteRegistration(this.RedecoreteSliderHeadNoteController));
+            this.Container.RegisterRedecorator(new BurstSliderNoteRegistration(this.RedecoreteSliderNoteController));
         }
 
         private GameNoteController RedecoreteNoteController(GameNoteController noteController)
         {
             noteController.gameObject.AddComponent<DummyBomb>();
             noteController.gameObject.AddComponent<DummyBombExprosionEffect>();
+            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
+            return noteController;
+        }
+
+        private GameNoteController RedecoreteSliderHeadNoteController(GameNoteController noteController)
+        {
+            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
+            return noteController;
+        }
+
+        private BurstSliderGameNoteController RedecoreteSliderNoteController(BurstSliderGameNoteController noteController)
+        {
+            noteController.gameObject.AddComponent<Models.NoteRaibowColorController>();
             return noteController;
         }
 

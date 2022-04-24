@@ -191,6 +191,7 @@
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
+    <Compile Include="Models\NoteRaibowColorController.cs" />
     <Compile Include="Models\ParticleAssetLoader.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -200,7 +201,6 @@
     <Compile Include="Utilities\ColorUtil.cs" />
     <Compile Include="Utilities\CustomNoteUtil.cs" />
     <Compile Include="Models\RainbowUtil.cs" />
-    <Compile Include="Utilities\ReflectionUtil.cs" />
     <Compile Include="Views\SettingViewController.cs" />
   </ItemGroup>
   <ItemGroup>
