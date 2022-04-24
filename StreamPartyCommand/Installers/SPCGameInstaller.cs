@@ -16,6 +16,7 @@ namespace StreamPartyCommand.Installers
             this.Container.BindMemoryPool<FlyingBombNameEffect, FlyingBombNameEffect.Pool>().WithInitialSize(10).FromComponentInNewPrefab(this._flyingBombNameEffect).AsCached();
             this.Container.BindInterfacesAndSelfTo<BombEffectSpowner>().FromNewComponentOnNewGameObject().AsCached().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BeatmapUtil>().AsSingle().NonLazy();
+            this.Container.BindInterfacesAndSelfTo<RainbowUtil>().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BombMeshGetter>().AsSingle().NonLazy();
             this.Container.BindInterfacesAndSelfTo<BombCommandController>().FromNewComponentOnNewGameObject().AsSingle();
             this.Container.BindInterfacesAndSelfTo<WallColorController>().FromNewComponentOnNewGameObject().AsSingle();
