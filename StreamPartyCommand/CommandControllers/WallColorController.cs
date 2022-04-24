@@ -4,8 +4,8 @@ using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
-using StreamPartyCommand.Staics;
 using StreamPartyCommand.Utilities;
+using StreamPartyCommand.Staics;
 using UnityEngine;
 using Zenject;
 
@@ -33,16 +33,35 @@ namespace StreamPartyCommand.CommandControllers
             if (messageArray.Length != 2) {
                 return;
             }
+
+            if (_rainbowUtil.IsRainbow(messageArray[1]))
+            {
+                rainbow = true;
+            }
             if (ColorUtil.Colors.TryGetValue(messageArray[1], out var color)) {
                 StretchableObstaclePatch.WallColor = color;
+                rainbow = false;
             }
         }
+
+        private void Update()
+        {
+            if (rainbow)
+            {
+                _rainbowUtil.SetWallRainbowColor(_rainbowUtil.WallRainbowColor());
+            }
+        }
+
         private BeatmapUtil _util;
+        private RainbowUtil _rainbowUtil;
+        private bool rainbow = false;
         [Inject]
-        public void Constractor(ColorManager manager, BeatmapUtil util)
+        public void Constractor(ColorManager manager, BeatmapUtil util, RainbowUtil rainbowUtil)
         {
             this.IsInstallTwitchFX = PluginManager.GetPluginFromId("TwitchFX") != null;
             this._util = util;
+            this._rainbowUtil = rainbowUtil;
+            this.rainbow = false;
             StretchableObstaclePatch.WallColor = manager.obstaclesColor;
         }
     }

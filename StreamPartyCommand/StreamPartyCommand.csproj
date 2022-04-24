@@ -199,6 +199,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ColorUtil.cs" />
     <Compile Include="Utilities\CustomNoteUtil.cs" />
+    <Compile Include="Models\RainbowUtil.cs" />
+    <Compile Include="Utilities\ReflectionUtil.cs" />
     <Compile Include="Views\SettingViewController.cs" />
   </ItemGroup>
   <ItemGroup>
