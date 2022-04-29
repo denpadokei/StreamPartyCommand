@@ -53,7 +53,7 @@ namespace StreamPartyCommand.Installers
 
         public SPCGameInstaller()
         {
-            this._flyingBombNameEffect = new GameObject("FlyingBombNameEffect", typeof(FlyingBombNameEffect), typeof(TextMeshPro)).GetComponent<FlyingBombNameEffect>();
+            this._flyingBombNameEffect = new GameObject("FlyingBombNameEffect", typeof(TextMeshPro), typeof(FlyingBombNameEffect)).GetComponent<FlyingBombNameEffect>();
         }
 
         ~SPCGameInstaller()
