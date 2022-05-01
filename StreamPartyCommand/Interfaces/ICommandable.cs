@@ -1,4 +1,4 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 
 namespace StreamPartyCommand.Interfaces
 {
@@ -10,6 +10,6 @@ namespace StreamPartyCommand.Interfaces
         /// </summary>
         /// <param name="service"></param>
         /// <param name="message"></param>
-        void Execute(IChatService service, IChatMessage message);
+        void Execute(MultiplexedPlatformService service, MultiplexedMessage message);
     }
 }

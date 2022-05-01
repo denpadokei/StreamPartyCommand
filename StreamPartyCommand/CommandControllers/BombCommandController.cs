@@ -1,4 +1,4 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.Interfaces;
 using StreamPartyCommand.Models;
@@ -24,7 +24,7 @@ namespace StreamPartyCommand.CommandControllers
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
         #region // パブリックメソッド
-        public void Execute(IChatService service, IChatMessage message)
+        public void Execute(MultiplexedPlatformService service, MultiplexedMessage message)
         {
             if (PluginConfig.Instance.IsBombEnable != true) {
                 return;
