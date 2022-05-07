@@ -7,7 +7,7 @@ namespace StreamPartyCommand.HarmonyPathches
     [HarmonyPatch(typeof(LightSwitchEventEffect), nameof(LightSwitchEventEffect.GetNormalColor), new Type[] { typeof(int), typeof(bool) })]
     public class GetNormalColorPatch
     {
-        public static void Postfix(ref int beatmapEventValue, ref bool colorBoost, ref Color __result, LightSwitchEventEffect __instance)
+        public static void Postfix(ref int beatmapEventValue, ref bool colorBoost, ref Color __result)
         {
             if (!Enable) {
                 return;
