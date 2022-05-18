@@ -1,4 +1,4 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 using IPA.Loader;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
@@ -21,7 +21,7 @@ namespace StreamPartyCommand.CommandControllers
             StretchableObstaclePatch.Enable = !this._util.IsNoodle && !this._util.IsChroma;
         }
 
-        public void Execute(IChatService service, IChatMessage message)
+        public void Execute(MultiplexedPlatformService service, MultiplexedMessage message)
         {
             if (PluginConfig.Instance.IsWallColorEnable != true) {
                 return;

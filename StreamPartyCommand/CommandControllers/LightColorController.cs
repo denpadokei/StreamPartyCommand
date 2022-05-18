@@ -1,4 +1,4 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 using IPA.Loader;
 using StreamPartyCommand.Configuration;
 using StreamPartyCommand.HarmonyPathches;
@@ -22,7 +22,7 @@ namespace StreamPartyCommand.CommandControllers
 
         public bool IsInstallTwitchFX { get; set; }
 
-        public void Execute(IChatService service, IChatMessage message)
+        public void Execute(MultiplexedPlatformService service, MultiplexedMessage message)
         {
             if (PluginConfig.Instance.IsPratformColorEnable != true) {
                 return;

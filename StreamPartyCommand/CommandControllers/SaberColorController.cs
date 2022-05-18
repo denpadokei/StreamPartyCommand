@@ -1,4 +1,4 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 using IPA.Loader;
 using SiraUtil.Sabers;
 using StreamPartyCommand.Configuration;
@@ -31,7 +31,7 @@ namespace StreamPartyCommand.CommandControllers
                 this._rainbow[i] = Color.HSVToRGB(hue, 1f, 1f);
             }
         }
-        public void Execute(IChatService service, IChatMessage message)
+        public void Execute(MultiplexedPlatformService service, MultiplexedMessage message)
         {
             if (!this.enable) {
                 return;
