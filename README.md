@@ -33,3 +33,4 @@ ver.1.1.0以降であれば、[TwitchFX](https://github.com/rakso20000/TwitchFX)
 - gray
 - grey
 - clear
+- rainbow
