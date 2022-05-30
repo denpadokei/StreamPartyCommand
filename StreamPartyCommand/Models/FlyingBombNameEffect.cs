@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamPartyCommand.Configuration;
+using System;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -11,12 +12,15 @@ namespace StreamPartyCommand.Models
         {
             try {
                 this._text = this.gameObject.GetComponent<TextMeshPro>();
+                if (this._text == null) {
+                    this._text = this.gameObject.AddComponent<TextMeshPro>();
+                }
                 if (FontAssetReader.instance.MainFont != null) {
                     this._text.font = FontAssetReader.instance.MainFont;
                 }
                 this._text.alignment = TextAlignmentOptions.Center;
                 this._text.fontSize = 30;
-                this.gameObject.layer = 5;
+                this.gameObject.layer = PluginConfig.Instance.NameObjectLayer;
             }
             catch (Exception e) {
                 Logger.Error(e);
