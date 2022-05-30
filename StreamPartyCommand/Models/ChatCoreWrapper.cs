@@ -1,7 +1,6 @@
-﻿using ChatCore;
-using ChatCore.Interfaces;
-using ChatCore.Services;
-using ChatCore.Services.Twitch;
+﻿using CatCore;
+using CatCore.Services.Multiplexer;
+using CatCore.Services.Twitch.Interfaces;
 using StreamPartyCommand.Events;
 using System;
 using System.Collections.Concurrent;
@@ -11,27 +10,23 @@ namespace StreamPartyCommand.Models
 {
     public class ChatCoreWrapper : IInitializable, IDisposable
     {
-        public ChatCoreInstance CoreInstance { get; private set; }
+        public CatCoreInstance CoreInstance { get; private set; }
         public ChatServiceMultiplexer MultiplexerInstance { get; private set; }
-        public TwitchService TwitchService { get; private set; }
+        public ITwitchService TwitchService { get; private set; }
         public ConcurrentQueue<ReceiveMessageEventArgs> RecieveChatMessage { get; } = new ConcurrentQueue<ReceiveMessageEventArgs>();
         public ConcurrentQueue<string> SendMessageQueue { get; } = new ConcurrentQueue<string>();
 
         public event OnTextMessageReceivedHandler OnMessageReceived;
-        public event OnLoginHandler OnLogined;
-        public event OnJoinChannelHandler OnJoinChannel;
 
         private bool disposedValue;
 
 
         public void Initialize()
         {
-            this.CoreInstance = ChatCoreInstance.Create();
+            this.CoreInstance = CatCoreInstance.Create();
             this.MultiplexerInstance = this.CoreInstance.RunAllServices();
-            this.MultiplexerInstance.OnLogin += this.MultiplexerInstance_OnLogin;
-            this.MultiplexerInstance.OnJoinChannel += this.MultiplexerInstance_OnJoinChannel;
-            this.TwitchService = this.MultiplexerInstance.GetTwitchService();
-            this.MultiplexerInstance.OnTextMessageReceived += this.MultiplexerInstance_OnTextMessageReceived;
+            this.TwitchService = this.MultiplexerInstance.GetTwitchPlatformService();
+            this.MultiplexerInstance.OnTextMessageReceived += this.MultiplexerInstance_OnTextMessageReceived1; //this.MultiplexerInstance_OnTextMessageReceived;
 
             this.OnMessageReceived += this.ChatCoreWrapper_OnMessageReceived;
         }
@@ -40,29 +35,15 @@ namespace StreamPartyCommand.Models
         {
             this.RecieveChatMessage.Enqueue(e);
         }
-
-        private void MultiplexerInstance_OnTextMessageReceived(IChatService arg1, IChatMessage arg2)
+        private void MultiplexerInstance_OnTextMessageReceived1(MultiplexedPlatformService arg1, MultiplexedMessage arg2)
         {
             this.OnMessageReceived?.Invoke(this, new ReceiveMessageEventArgs(arg1, arg2));
         }
-
-        private void MultiplexerInstance_OnJoinChannel(IChatService arg1, IChatChannel arg2)
-        {
-            this.OnJoinChannel?.Invoke(this, new JoinChannelEventArgs(arg1, arg2));
-        }
-
-        private void MultiplexerInstance_OnLogin(IChatService obj)
-        {
-            this.OnLogined?.Invoke(this, new LoginEventArgs(obj));
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposedValue) {
                 if (disposing) {
-                    this.MultiplexerInstance.OnLogin -= this.MultiplexerInstance_OnLogin;
-                    this.MultiplexerInstance.OnJoinChannel -= this.MultiplexerInstance_OnJoinChannel;
-                    this.MultiplexerInstance.OnTextMessageReceived += this.MultiplexerInstance_OnTextMessageReceived;
+                    this.MultiplexerInstance.OnTextMessageReceived += this.MultiplexerInstance_OnTextMessageReceived1;
 
                     this.OnMessageReceived -= this.ChatCoreWrapper_OnMessageReceived;
                 }

@@ -55,8 +55,8 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="ChatCore">
-      <HintPath>$(BeatSaberDir)\Libs\ChatCore.dll</HintPath>
+    <Reference Include="CatCore">
+      <HintPath>$(BeatSaberDir)\Libs\CatCore.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -191,6 +191,7 @@
     <Compile Include="CommandControllers\WallColorController.cs" />
     <Compile Include="Events\ReceiveMessageEventArgs.cs" />
     <Compile Include="Models\FlyingBombNameEffect.cs" />
+    <Compile Include="Models\NoteRaibowColorController.cs" />
     <Compile Include="Models\ParticleAssetLoader.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ColorUtil.cs" />
     <Compile Include="Utilities\CustomNoteUtil.cs" />
+    <Compile Include="Models\RainbowUtil.cs" />
     <Compile Include="Views\SettingViewController.cs" />
   </ItemGroup>
   <ItemGroup>

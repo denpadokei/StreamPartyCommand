@@ -19,5 +19,10 @@ namespace StreamPartyCommand.Utilities
             }
             Colors = new ReadOnlyDictionary<string, Color>(dic);
         }
+
+        public static bool IsRainbow(string name)
+        {
+            return name == "rainbow";
+        }
     }
 }

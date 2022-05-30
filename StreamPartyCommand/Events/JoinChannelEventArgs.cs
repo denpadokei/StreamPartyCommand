@@ -1,13 +1,13 @@
-﻿using ChatCore.Interfaces;
+﻿using CatCore.Services.Multiplexer;
 using System;
 
 namespace StreamPartyCommand.Events
 {
     public class JoinChannelEventArgs : EventArgs
     {
-        public IChatService ChatService { get; private set; }
-        public IChatChannel ChatChannel { get; private set; }
-        public JoinChannelEventArgs(IChatService service, IChatChannel chatChannel)
+        public MultiplexedPlatformService ChatService { get; private set; }
+        public MultiplexedChannel ChatChannel { get; private set; }
+        public JoinChannelEventArgs(MultiplexedPlatformService service, MultiplexedChannel chatChannel)
         {
             this.ChatService = service;
             this.ChatChannel = chatChannel;
