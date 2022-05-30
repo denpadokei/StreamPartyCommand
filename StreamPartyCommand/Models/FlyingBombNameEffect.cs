@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamPartyCommand.Configuration;
+using System;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -19,7 +20,7 @@ namespace StreamPartyCommand.Models
                 }
                 this._text.alignment = TextAlignmentOptions.Center;
                 this._text.fontSize = 30;
-                this.gameObject.layer = 5;
+                this.gameObject.layer = PluginConfig.Instance.NameObjectLayer;
             }
             catch (Exception e) {
                 Logger.Error(e);
