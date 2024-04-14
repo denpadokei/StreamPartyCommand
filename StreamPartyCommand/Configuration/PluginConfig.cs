@@ -16,6 +16,7 @@ namespace StreamPartyCommand.Configuration
         public virtual bool IsNoteColorEnable { get; set; } = true;
         public virtual bool IsPratformColorEnable { get; set; } = true;
         public virtual int NameObjectLayer { get; set; } = 0;
+        public virtual bool ReloadeIfMissCut { get; set; } = true;
 
         /// <summary>
         /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).

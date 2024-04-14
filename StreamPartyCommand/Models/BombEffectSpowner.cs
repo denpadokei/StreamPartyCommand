@@ -65,12 +65,18 @@ namespace StreamPartyCommand.Models
             if (string.IsNullOrEmpty(dummyBomb.Text)) {
                 return;
             }
-            var effect = this._flyingBombNameEffectPool.Spawn();
-            effect.transform.localPosition = Vector3.zero;
-            effect.didFinishEvent.Add(this);
-            var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
-            effect.InitAndPresent(dummyBomb.Text, this._missDuaring, targetpos, noteController.worldRotation, Color.red, 10, false);
-            dummyBomb.Text = "";
+            if (PluginConfig.Instance.ReloadeIfMissCut) {
+                DummyBomb.Senders.Enqueue(dummyBomb.Text);
+                dummyBomb.Text = "";
+            }
+            else {
+                var effect = this._flyingBombNameEffectPool.Spawn();
+                effect.transform.localPosition = Vector3.zero;
+                effect.didFinishEvent.Add(this);
+                var targetpos = noteController.worldRotation * (new Vector3(0, 1.7f, 10f));
+                effect.InitAndPresent(dummyBomb.Text, this._missDuaring, targetpos, noteController.worldRotation, Color.red, 10, false);
+                dummyBomb.Text = "";
+            }
         }
         #endregion
         //ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*ﾟ+｡｡+ﾟ*｡+ﾟ ﾟ+｡*
