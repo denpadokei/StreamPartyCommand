@@ -10,7 +10,7 @@ namespace StreamPartyCommand.Utilities
     {
         public bool IsInstallCustomNote { get; private set; }
         private readonly object _loader;
-        public int SelectedNoteIndex => this._loader == null ? -1 : (int)this._loader.GetType().GetProperty("SelectedNote").GetValue(this._loader);
+        public int SelectedNoteIdx => this._loader == null ? -1 : (int)this._loader.GetType().GetProperty("SelectedNoteIdx").GetValue(this._loader);
         public bool Enabled => this._loader != null && (bool)this._loader.GetType().GetProperty("Enabled").GetValue(this._loader);
         private static readonly Type s_customNoteController;
         private static readonly PropertyInfo s_customNoteControllerColorInfo;

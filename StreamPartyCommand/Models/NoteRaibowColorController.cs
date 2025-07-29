@@ -34,7 +34,7 @@ namespace StreamPartyCommand.Models
                             return;
                         }
                         var color = this._noteColorController.Colors[this._noteColorController.LeftColorIndex];
-                        if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIndex) {
+                        if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIdx) {
                             this._customNoteUtil.SetColor(this.gameObject, color);
                         }
                         else {
@@ -50,7 +50,7 @@ namespace StreamPartyCommand.Models
                             return;
                         }
                         var color = this._noteColorController.Colors[this._noteColorController.RightColorIndex];
-                        if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIndex) {
+                        if (this._customNoteUtil.Enabled && 0 <= this._customNoteUtil.SelectedNoteIdx) {
                             this._customNoteUtil.SetColor(this.gameObject, color);
                         }
                         else {
