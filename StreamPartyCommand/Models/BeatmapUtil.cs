@@ -22,7 +22,7 @@ namespace StreamPartyCommand.Models
         {
             // thanks kinsi
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "NoodleExtensions")) {
-                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level, key)?
+                var isIsNoodleMap = SongCore.Collections.GetCustomLevelSongDifficultyData(key)?
                     .additionalDifficultyData?
                     ._requirements?.Any(x => x == "Noodle Extensions") == true;
                 return isIsNoodleMap;
@@ -35,10 +35,10 @@ namespace StreamPartyCommand.Models
         {
 
             if (PluginManager.EnabledPlugins.Any(x => x.Name == "Chroma")) {
-                var isIsNoodleMap = SongCore.Collections.RetrieveDifficultyData(level, key)?
+                var isIsNoodleMap = SongCore.Collections.GetCustomLevelSongDifficultyData(key)?
                     .additionalDifficultyData?
                     ._requirements?.Any(x => x == "Chroma") == true;
-                isIsNoodleMap = isIsNoodleMap || SongCore.Collections.RetrieveDifficultyData(level, key)?
+                isIsNoodleMap = isIsNoodleMap || SongCore.Collections.GetCustomLevelSongDifficultyData(key)?
                     .additionalDifficultyData?
                     ._suggestions?.Any(x => x == "Chroma") == true;
                 return isIsNoodleMap;

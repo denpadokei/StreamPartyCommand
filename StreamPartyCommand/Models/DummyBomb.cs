@@ -108,7 +108,7 @@ namespace StreamPartyCommand.Models
         public void Init(CustomNoteUtil customNoteUtil)
         {
             this._customNoteUtil = customNoteUtil;
-            this._selectedNoteIndex = this._customNoteUtil.SelectedNoteIndex;
+            this._selectedNoteIndex = this._customNoteUtil.SelectedNoteIdx;
             this._isCustomNote = this._customNoteUtil.IsInstallCustomNote && this._customNoteUtil.Enabled && 1 <= this._selectedNoteIndex;
         }
         #endregion

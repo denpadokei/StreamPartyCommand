@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StreamPartyCommand.HarmonyPathches
 {
-    [HarmonyPatch(typeof(StretchableObstacle), nameof(StretchableObstacle.SetSizeAndColor), new Type[] { typeof(float), typeof(float), typeof(float), typeof(Color) })]
+    [HarmonyPatch(typeof(StretchableObstacle), nameof(StretchableObstacle.SetAllProperties), new Type[] { typeof(float), typeof(float), typeof(float), typeof(Color), typeof(float) })]
     public class StretchableObstaclePatch
     {
         public static Color WallColor { get; set; }
