@@ -3,7 +3,7 @@
   "id": "StreamPartyCommand",
   "name": "StreamPartyCommand",
   "author": "denpadokei",
-  "version": "5.1.0-rc1",
+  "version": "5.1.0",
   "description": "",
   "gameVersion": "1.40.4",
   "dependsOn": {
